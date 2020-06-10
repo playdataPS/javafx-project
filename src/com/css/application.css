@@ -1,0 +1,18 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.btn{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);	
+}
+
+
+.btn-ready{
+	-fx-background-color: #EF5350; 
+	
+}
+.btn-cancel{
+	-fx-background-color: #2196F3;
+	
+}
+.btn:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0.4,0.8), 10, 0, 0, 0);
+}
