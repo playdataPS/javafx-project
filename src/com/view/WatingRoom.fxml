@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #fff;" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="127.0" prefWidth="1200.0" AnchorPane.bottomAnchor="673.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -181,12 +181,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="243.0" style="-fx-background-color: #EF5350; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" styleClass="btn-ready" text="준비" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="243.0" text="준비" textFill="WHITE">
                <font>
                   <Font name="D2Coding Bold" size="45.0" />
                </font>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-ready" />
+               </styleClass>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #9E9E9E; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" text="나가기" textFill="WHITE" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #9E9E9E; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" styleClass="btn-exit" text="나가기" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="D2Coding Bold" size="36.0" />
                </font>
