@@ -7,11 +7,20 @@ public class Game {
 	private int dictNo;
 	private String img;
 	private Date regdate;
+	private boolean state;
 	
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public boolean getState() {
+		return state;
+	}
 
+	public void setState(boolean state) {
+		this.state = state;
+	}
+	
 	public int getNo() {
 		return no;
 	}
