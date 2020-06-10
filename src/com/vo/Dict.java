@@ -10,6 +10,15 @@ public class Dict {
 	public Dict() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Dict(int no, String word, Date regdate) {
+		super();
+		this.no = no;
+		this.word = word;
+		this.regdate = regdate;
+	}
+
 
 	public int getNo() {
 		return no;
