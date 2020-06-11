@@ -1,17 +1,35 @@
 package com.vo;
 
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.sql.Date;
 
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int no;
 	private String ip;
 	private String nickname;
 	private int score;
 	private Date regdate;
+	private transient ObjectOutputStream oos;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public User(String ip, String nickname) {
+		super();
+		this.ip = ip;
+		this.nickname = nickname;
+		
+	}
+
+
 
 	public int getNo() {
 		return no;
