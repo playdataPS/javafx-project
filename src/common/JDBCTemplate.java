@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-////// Connection & Close & Commit & rollback  4개만 user가 제어할 수 있게 만들어둠
+////// Connection & Close & Commit & rollback  4媛쒕쭔 user媛� �젣�뼱�븷 �닔 �엳寃� 留뚮뱾�뼱�몺
 public class JDBCTemplate {
-	// 연결한 상태로 리턴해주겠다.
+	// �뿰寃고븳 �긽�깭濡� 由ы꽩�빐二쇨쿋�떎.
 	public static Connection getConnection() {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -16,8 +16,8 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 
-		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String id = "minifx";
+		String url = "jdbc:oracle:thin:@192.168.0.249:1521:XE";
+		String id = "sminifx";
 		String pwd = "admin1234";
 		Connection con = null;
 
@@ -30,7 +30,7 @@ public class JDBCTemplate {
 		return con;
 	}
 
-	// 연결 객체를 받아서(연결한 상태를) close()하겠다.
+	// �뿰寃� 媛앹껜瑜� 諛쏆븘�꽌(�뿰寃고븳 �긽�깭瑜�) close()�븯寃좊떎.
 	public static void Close(Connection con) {
 		try {
 			if (!con.isClosed() && con != null) {
