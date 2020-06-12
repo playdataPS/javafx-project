@@ -3,7 +3,7 @@ package com.client;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class MainApp extends Application {
+public class MainLauncher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
