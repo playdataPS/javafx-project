@@ -91,7 +91,7 @@ public class Chatclient implements Runnable {
 //		Chatclient mf = new Chatclient("kikiki");
 //		Thread thread = new Thread(mf);
 //		thread.start();//run() 호출 실행 
-		new Chatclient("kimdb").start();
+		new Chatclient("bibibibi").start();
 		
 	
 	}
