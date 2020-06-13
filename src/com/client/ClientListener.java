@@ -11,20 +11,27 @@ import java.util.ArrayList;
 import com.vo.Status;
 import com.vo.User;
 
-public class ClientListener implements Runnable {
-	private String serverIP;
-	private String clientIP;
-	private int serverPORT;
-	private String nickname;
-	private Socket socket;
-	private User user;
+public class ClientListener implements Runnable{
+	private static String serverIP;
+	private static String clientIP;
+	private static int serverPORT;
+	private static String nickname;
+	private static Socket socket;
+	
+	private static User user;
 	private ArrayList<User> userList;
 	private boolean flag;
+	private Thread listener;
+	private static ObjectInputStream ois;
+	private static ObjectOutputStream oos;
 	
-	ObjectInputStream ois;
-	ObjectOutputStream oos;
-	PrintWriter out = null; // 메시지 출력 객체 
-	BufferedReader in = null; //소켓으로 작성된 메세지를 읽어오는 객체 
+	
+	private static ClientListener instance;
+
+	public ClientListener() { instance = this; }
+
+	public static ClientListener getInstance() { return instance; }
+	
 	
 	
 	
@@ -34,7 +41,7 @@ public class ClientListener implements Runnable {
 		this.nickname = nickname;
 	}
 	
-	public void start() {
+	public void createConnect() {
 		try {
 			socket = new Socket(serverIP, serverPORT); //create client's socket
 			oos = new ObjectOutputStream(socket.getOutputStream()); // send data to server socket 
@@ -47,11 +54,12 @@ public class ClientListener implements Runnable {
 			e.printStackTrace();
 		}
 		
-		//thread 
-		Thread listener = new Thread(this);
+//		//thread 
+		listener = new Thread(this);
 		listener.start();
 	}
 	
+	// update UI according to the message from server 
 	@Override
 	public void run() {
 		while(!flag) {
@@ -109,6 +117,30 @@ public class ClientListener implements Runnable {
 			
 		}//while end 
 		
+		try {
+			ois.close();
+		} catch (IOException e) {
+			System.err
+					.println(" ChatClientThread에의 ObjectOutputStream을 Close하는 중에 IOException이 발생하였습니다.");
+		}// catch
+		
+	}
+	
+	public void endConnect() {
+		try {
+			socket.close();
+			oos.close();
+			ois.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		new ClientListener("127.0.0.1", 5555, "bing").createConnect();
+		Thread listener = new Thread();
 	}
 
 }
