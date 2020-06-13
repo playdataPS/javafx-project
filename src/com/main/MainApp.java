@@ -1,9 +1,11 @@
 package com.main;
 
+import com.view.DrawController;
 import com.view.LoginController;
 import com.view.RoomListController;
 import com.view.SettingController;
 import com.view.WaitingRoomController;
+import com.vo.GameUser;
 import com.vo.Room;
 import com.vo.User2;
 
@@ -34,6 +36,10 @@ public class MainApp extends Application {
 	private ObservableList<User2> userListOfWaitingRoom = FXCollections.observableArrayList();
 	public ObservableList<User2> getUserListOfWaitingRoom() {
 		return userListOfWaitingRoom;
+	}
+	private ObservableList<GameUser> playerlist = FXCollections.observableArrayList();
+	public ObservableList<GameUser> getGameUsers() {
+		return playerlist;
 	}
 	
 	public Stage getPrimaryStage() {
@@ -139,8 +145,8 @@ public class MainApp extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			
-			//MainAppController controller = loader.getController();
-			//controller.setMainApp(this);
+			DrawController controller = loader.getController();
+			controller.setMainApp(this);
 			
 			primaryStage.show(); 
 			primaryStage.setResizable(false);
