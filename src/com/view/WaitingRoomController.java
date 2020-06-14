@@ -1,17 +1,23 @@
 package com.view;
 
-import com.main.MainApp;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
+import com.main.MainApp;
+import com.vo.Room;
+import com.vo.User2;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
-public class WaitingRoomController {
+public class WaitingRoomController implements Initializable{
 	@FXML
 	private Label RoomNameLabel;
 	@FXML
@@ -35,7 +41,9 @@ public class WaitingRoomController {
 	@FXML
 	private Label UserLabel8;
 	@FXML
-	private ScrollPane sp;
+	private TextArea chatArea;
+//	@FXML
+//	private ScrollPane sp;
 	@FXML
 	private TextField input;
 	@FXML
@@ -44,6 +52,12 @@ public class WaitingRoomController {
 	private Button readyStart;
 	@FXML
 	private Button exitButton;
+	
+	private Stage waitingRoomStage;
+	
+	private Room room;
+	private User2 user;
+	
 	@FXML
 	private Pane user1;
 	@FXML
@@ -71,27 +85,69 @@ public class WaitingRoomController {
 	
 	@FXML
 	private void initialize() {
-		UserLabel1.setText("�����01");
-		UserLabel2.setText("�����02");
-		UserLabel3.setText("�����03");
-		UserLabel4.setText("�����04");
-		UserLabel5.setText("�����05");
-		UserLabel6.setText("�����06");
-		UserLabel7.setText("�����07");
-		UserLabel8.setText("�����08");
-		// readyStart.setOnAction(event -> ChangeReadyColor);    
-            
-       
+		RoomNameLabel.setText("방 이름");
+		UserLabel1.setText("");
+		UserLabel2.setText("");
+		UserLabel3.setText("");
+		UserLabel4.setText("");
+		UserLabel5.setText("");
+		UserLabel6.setText("");
+		UserLabel7.setText("");
+		UserLabel8.setText("");
+		input.setText("");
+		input.requestFocus();
 	}
 	
 	
 	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		CurrUserCount.setText("0");
+		CurrUserCount.setText(String.valueOf(mainApp.getUserListOfRoomList().size()));
 		MaxUserCount.setText("8");
 		//UserLabel8.getStylesheets().add("LabelStyle.css");
 		//UserLabel8.getStyleClass().add(".-rectPrepared");
+	}
+	
+	public Stage getWaitingRoomStage() {
+		return waitingRoomStage;
+	}
+	public void setWaitingRoomStage(Stage waitingRoomStage) {
+		this.waitingRoomStage = waitingRoomStage;
+	}
+
+	public void changeRoomName() {
+		RoomNameLabel.setText(room.getName().get());
+	}
+
+	public void changeMaxNum() {
+		MaxUserCount.setText(room.getUserCnt().get().substring(room.getUserCnt().get().length()-1, room.getUserCnt().get().length()));
+	}
+	
+	public void changeLabel1() {
+		UserLabel1.setText(user.getNickname().get());
+	}
+	
+	public User2 getUser() {
+		return user;
+	}
+
+	public void setUser(User2 user) {
+		this.user = user;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	@FXML
+	private void submitAppend() {
+		chatArea.appendText(input.getText()+"\n");
+		input.setText("");
+		input.requestFocus();
 	}
 	
 	public void ChangeReadyColor() {
@@ -108,7 +164,14 @@ public class WaitingRoomController {
 		}
 	}
 	
-	public void exit() {
+	@FXML
+	private void exitApp() {
+		System.exit(0);
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		
 	}
 	

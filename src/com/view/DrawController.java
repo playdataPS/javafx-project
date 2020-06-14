@@ -17,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 public class DrawController implements Initializable{
 	@FXML
@@ -47,7 +46,7 @@ public class DrawController implements Initializable{
 	@FXML
 	private Label user;
 
-	// 메인 애플리케이션 참
+	// 메인 애플리케이션 참조
 	private MainApp mainApp;
 
 	// db의 WORD 불러옴.
@@ -126,7 +125,10 @@ public class DrawController implements Initializable{
 		Thread thread = new Thread(task);
 		thread.start();
 
-		
 	}
 
+	@FXML
+	private void exitApp() {
+		System.exit(0);
+	}
 }

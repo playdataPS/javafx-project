@@ -10,12 +10,24 @@ public class Room {
 	private final StringProperty name;
 	private final StringProperty userCnt;
 	private final StringProperty enterButton;
+	public Room(String roomName, int maxNum) {
+		this.no = new SimpleIntegerProperty(0);
+		this.name = new SimpleStringProperty(roomName);
+		this.userCnt = new SimpleStringProperty("0/ " + String.valueOf(maxNum));
+		this.enterButton = new SimpleStringProperty("들어가기");
+	}
+//	public Room(String roomName, int curNum, int maxNum) {
+//		this.no = new SimpleIntegerProperty(0);
+//		this.name = new SimpleStringProperty(roomName);
+//		this.userCnt = new SimpleStringProperty(String.valueOf(curNum)+ "/ " + String.valueOf(maxNum));
+//		this.enterButton = new SimpleStringProperty("들어가기");
+//	}
 	public Room(int no, String name) {
 		this.no = new SimpleIntegerProperty(no);
 		this.name = new SimpleStringProperty(name);
 		
 		this.userCnt = new SimpleStringProperty("0/ 0");
-		this.enterButton = new SimpleStringProperty("����");
+		this.enterButton = new SimpleStringProperty("들어가기");
 	}
 	public Room() {
 		this((Integer) null, null);
@@ -28,6 +40,9 @@ public class Room {
 	}
 	public StringProperty getName() {
 		return name;
+	}
+	public String getNameString() {
+		return name.get();
 	}
 	public void setName(String name) {
 		this.name.set(name);

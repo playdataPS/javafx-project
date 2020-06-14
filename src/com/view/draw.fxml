@@ -17,7 +17,7 @@
 		<Region layoutX="191.0" layoutY="126.0" prefHeight="369.0" prefWidth="781.0" style="-fx-border-color: lightgray;" />
 		<Canvas fx:id="canvas" height="368.0" layoutX="191.0" layoutY="126.0" width="780.0" />
 		<Label id="user" fx:id="user" alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="89.0" prefHeight="23.0" prefWidth="62.0" style="-fx-border-color: gray;" text="사용자" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
-		<Button fx:id="out" layoutX="1020.0" layoutY="740.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="117.0" text="나가기" />
+		<Button fx:id="out" layoutX="1020.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="40.0" prefWidth="117.0" text="나가기" />
 		<TableView fx:id="playerlist" layoutX="999.0" layoutY="126.0" prefHeight="200.0" prefWidth="168.0">
 			<columns>
 				<TableColumn fx:id="player" prefWidth="167.0" text="접속자" />

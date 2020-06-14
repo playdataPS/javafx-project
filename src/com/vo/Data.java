@@ -4,14 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class Data implements Serializable {
-	private String name; // Ŭ���̾�Ʈ �̸�
-	private String receiver; // �Ӹ��� ���� Ŭ���̾�Ʈ �̸�
-	private String message; // Ŭ���̾�Ʈ�� �޽���
+	private String name; // 클라이언트 이름
+	private String receiver; // 귓말을 받을 클라이언트 이름
+	private String message; // 클라이언트의 메시지
 	private Room room;
-	private int state; // Ŭ���̾�Ʈ�� ���Ӱ� ������¸� �����ϴ� ����
-	private transient ObjectOutputStream oos; // �ڷ����� ��ü
-	private Vector<String> userList; // �����ڵ��� �̸�(ó�� �����Ҷ� ����)
-	//Ŭ���̾�Ʈ�� ���¸� ��Ÿ���� ���
+	private int state; // 클라이언트의 접속과 종료상태를 저장하는 변수
+	private transient ObjectOutputStream oos; // 자료전달 객체
+	private Vector<String> userList; // 접속자들의 이름(처음 접속할때 본다)
+	//클라이언트의 상태를 나타내는 상수
 	//private Vector<String> roomList;
 	private HashMap<String, Room> roomList;
 	private Vector<String> playerlist;

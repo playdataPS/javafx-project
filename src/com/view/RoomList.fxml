@@ -44,17 +44,17 @@
             </Label>
             <ButtonBar layoutX="673.0" layoutY="41.0" prefHeight="78.0" prefWidth="497.0">
               <buttons>
-                <Button fx:id="galleryButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="그림 마당">
+                <Button fx:id="galleryButton" mnemonicParsing="false" onAction="#goToGallery" prefHeight="50.0" prefWidth="50.0" text="그림 마당">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="createRoomButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="방 만들기">
+                  <Button fx:id="createRoomButton" mnemonicParsing="false" onAction="#createRoom" prefHeight="50.0" prefWidth="150.0" text="방 만들기">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="randomMatchingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="랜덤 매칭">
+                  <Button fx:id="randomMatchingButton" mnemonicParsing="false" onAction="#randomMatch" prefHeight="50.0" prefWidth="150.0" text="랜덤 매칭">
                      <font>
                         <Font size="24.0" />
                      </font>

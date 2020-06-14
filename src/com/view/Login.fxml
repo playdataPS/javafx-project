@@ -45,7 +45,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Pane prefHeight="200.0" prefWidth="140.0" />
-                  <Button fx:id="startButton" mnemonicParsing="false" text="게임 시작">
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#gameStart" text="게임 시작">
                      <HBox.margin>
                         <Insets top="40.0" />
                      </HBox.margin>
