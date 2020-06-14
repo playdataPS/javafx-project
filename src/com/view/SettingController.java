@@ -2,7 +2,7 @@ package com.view;
 
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +28,7 @@ public class SettingController {
 	
 	private Stage settingStage;
 
-	private User2 user;
+	private User user;
 	
 	@FXML
 	private void initialize() {
@@ -48,11 +48,11 @@ public class SettingController {
 		this.settingStage = settingStage;
 	}
 
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

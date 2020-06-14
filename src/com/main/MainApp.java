@@ -1,13 +1,15 @@
 package com.main;
 
+import com.client.Client;
 import com.view.DrawController;
 import com.view.LoginController;
 import com.view.RoomListController;
 import com.view.SettingController;
 import com.view.WaitingRoomController;
+import com.vo.Data;
 import com.vo.GameUser;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -29,12 +31,12 @@ public class MainApp extends Application {
 	public ObservableList<Room> getRoomData() {
 		return roomData;
 	}
-	private ObservableList<User2> userListOfRoomList = FXCollections.observableArrayList();
-	public ObservableList<User2> getUserListOfRoomList() {
+	private ObservableList<User> userListOfRoomList = FXCollections.observableArrayList();
+	public ObservableList<User> getUserListOfRoomList() {
 		return userListOfRoomList;
 	}
-	private ObservableList<User2> userListOfWaitingRoom = FXCollections.observableArrayList();
-	public ObservableList<User2> getUserListOfWaitingRoom() {
+	private ObservableList<User> userListOfWaitingRoom = FXCollections.observableArrayList();
+	public ObservableList<User> getUserListOfWaitingRoom() {
 		return userListOfWaitingRoom;
 	}
 	private ObservableList<GameUser> playerlist = FXCollections.observableArrayList();
@@ -60,12 +62,11 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Main");
-		initLogin();
+//		initLogin();
 //		initRoomList();
 //		initWaitingRoom();
 //		initAnswer();
-//		initDraw();
+		initDraw();
 //		initSetting();
 //		initScore();
 	}
@@ -76,14 +77,14 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("../view/Login.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			
-			Stage loginStage = new Stage();
-			loginStage.setTitle("Login");
+			primaryStage.setTitle("Login");
 			
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setLoginStage(primaryStage);
 			
 			primaryStage.show(); 
 			primaryStage.setResizable(false);
@@ -91,7 +92,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	public void initWaitingRoom(User2 user, Room room) {
+	public void initWaitingRoom(User user, Room room) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
@@ -147,6 +148,7 @@ public class MainApp extends Application {
 			
 			DrawController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setDrawStage(primaryStage);
 			
 			primaryStage.show(); 
 			primaryStage.setResizable(false);
@@ -154,7 +156,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	public void initRoomList(User2 user) {
+	public void initRoomList(User user) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/RoomList.fxml"));
@@ -169,6 +171,7 @@ public class MainApp extends Application {
 	        RoomListController controller = loader.getController();
 	        controller.setRoomListStage(roomListStage);
 	        controller.setUser(user);
+	        Client cli = new Client(user, Data.FIRST_CONNECTION);
 	        
 	        getUserListOfRoomList().add(user);
 
@@ -180,7 +183,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	public void initSetting(User2 user) {
+	public void initSetting(User user) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/Setting.fxml"));

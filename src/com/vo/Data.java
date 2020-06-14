@@ -10,7 +10,7 @@ public class Data implements Serializable {
 	private Room room;
 	private int state; // 클라이언트의 접속과 종료상태를 저장하는 변수
 	private transient ObjectOutputStream oos; // 자료전달 객체
-	private Vector<String> userList; // 접속자들의 이름(처음 접속할때 본다)
+	private ArrayList<String> userList; // 접속자들의 이름(처음 접속할때 본다)
 	//클라이언트의 상태를 나타내는 상수
 	//private Vector<String> roomList;
 	private HashMap<String, Room> roomList;
@@ -77,10 +77,10 @@ public class Data implements Serializable {
 	public void setOos(ObjectOutputStream oos) {
 		this.oos = oos;
 	}
-	public Vector<String> getUserList() {
+	public ArrayList<String> getUserList() {
 		return userList;
 	}
-	public void setUserList(Vector<String> userList) {
+	public void setUserList(ArrayList<String> userList) {
 		this.userList = userList;
 	}
 	public HashMap<String, Room> getRoomList() {

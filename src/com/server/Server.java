@@ -2,10 +2,16 @@ package com.server;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class Server {
 	private static Socket socket = null;
-	
+		
+	private static ArrayList<String> userListOfRoomListInServer = new ArrayList<String>();
+	public static ArrayList<String> getUserListOfRoomListInServer() {
+		return userListOfRoomListInServer;
+	}
+
 	public void service() {
 		ServerSocket serverSocket = null;
 		try {
@@ -13,8 +19,7 @@ public class Server {
 			serverSocket = new ServerSocket(5555);
 			while (!serverSocket.isClosed()) {
 				socket = serverSocket.accept();
-				System.out.println(socket.getPort());
-				System.out.println(socket.getInetAddress());
+				System.out.println(socket.getInetAddress()+"에서 접속완료");
 				Thread thread = new Thread(new ServerThread(socket));
 				thread.start();
 			}

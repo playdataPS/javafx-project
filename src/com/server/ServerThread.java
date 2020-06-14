@@ -4,11 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 
+import com.vo.Data;
+
 public class ServerThread implements Runnable {
 	private Socket socket;
 	private boolean exit;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
+	private Data data = null;
 	
 	public ServerThread(Socket socket) {
 		super();
@@ -24,10 +27,21 @@ public class ServerThread implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println(socket.getPort());
 		while (!exit) {
 			try {
-				
+				data = (Data) ois.readObject();
+				int state = data.getState();
+				switch (state) {
+				case Data.FIRST_CONNECTION:
+					data.setOos(oos);
+					System.out.println("[" + data.getName() + "] " + data.getMessage());
+					Server.getUserListOfRoomListInServer().add(data.getName());
+					//System.out.println(Server.getUserListOfRoomListInServer().get(0));
+					break;
+				case Data.DISCONNECTION:
+					System.out.println(data.getName()+ "님이 접속을 종료하셨습니다.");
+					break;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

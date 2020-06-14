@@ -2,12 +2,11 @@ package com.view;
 
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -52,7 +51,7 @@ public class WaitingRoomController {
 	
 	private Room room;
 	
-	private User2 user;
+	private User user;
 
 	public WaitingRoomController() {
 		super();
@@ -101,11 +100,11 @@ public class WaitingRoomController {
 		UserLabel1.setText(user.getNickname().get());
 	}
 	
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

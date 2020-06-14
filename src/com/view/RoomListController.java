@@ -1,8 +1,14 @@
 package com.view;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 import com.main.MainApp;
+import com.vo.Data;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,9 +31,9 @@ public class RoomListController {
 	@FXML
 	private Label noticeLabel;
 	@FXML
-	private TableView<User2> userList;
+	private TableView<User> userList;
 	@FXML
-	private TableColumn<User2, String> userName;
+	private TableColumn<User, String> userName;
 	@FXML
 	private Button galleryButton;
 	@FXML
@@ -39,7 +45,7 @@ public class RoomListController {
 	 
 	private Stage roomListStage;
 	
-	private User2 user;
+	private User user;
 	
 	public RoomListController() {
 		super();
@@ -72,11 +78,11 @@ public class RoomListController {
 		this.roomListStage = roomListStage;
 	}
 
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

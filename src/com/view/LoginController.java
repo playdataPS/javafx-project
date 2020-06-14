@@ -2,12 +2,14 @@ package com.view;
 
 import com.main.MainApp;
 import com.vo.User;
-import com.vo.User2;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
 
 public class LoginController {
 	@FXML
@@ -18,8 +20,9 @@ public class LoginController {
 	private Label noticeLabel;
 	
 	private MainApp mainApp;
-	private User2 user;
 	
+	private Stage loginStage;
+
 	@FXML
 	private void initialize() {
 		nicknameTextField.setText("");
@@ -29,19 +32,28 @@ public class LoginController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-//	public void setUser(User2 user) {
-//		this.user = user;
-////		this.user.setNo(no);
-////		this.user.setIp(ip);
-////		this.user.setNickname(nickname);
-////		this.user.setScore(score);
-////		this.user.setRegdate(regdate);
-//	}
 	
+	public void setLoginStage(Stage loginStage) {
+		this.loginStage = loginStage;
+	}
+
 	@FXML
 	private void gameStart() {
 		String nickname = nicknameTextField.getText();
-		User2 user = new User2(nickname);
-		mainApp.initRoomList(user);
+		
+		boolean check = nickname.isEmpty();
+		
+		if (check) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(loginStage);
+			alert.setTitle("ERRORS");
+			alert.setHeaderText("오류 발생");
+			alert.setContentText("닉네임을 입력해주세요.");
+			
+			alert.showAndWait();
+		} else {
+			User user = new User(nickname);
+			mainApp.initRoomList(user);	
+		}
 	}
 }
