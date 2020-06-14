@@ -6,29 +6,35 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.*;
 
+import com.vo.Room;
+import com.vo.RoomStatus;
 import com.vo.Status;
 import com.vo.User;
 
 public class ClientListener implements Runnable{
-	private static String serverIP;
-	private static String clientIP;
-	private static int serverPORT;
-	private static String nickname;
-	private static Socket socket;
+	private String serverIP;
+	private String clientIP;
+	private int serverPORT;
+	private String nickname;
+	private Socket socket;
 	
-	private static User user;
+	private User user;
 	private ArrayList<User> userList;
+	private ArrayList<Room> roomList;
 	private boolean flag;
 	private Thread listener;
-	private static ObjectInputStream ois;
-	private static ObjectOutputStream oos;
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 	
 	
 	private static ClientListener instance;
 
-	public ClientListener() { instance = this; }
+	public ClientListener() { 
+		instance = this; 
+		
+	}
 
 	public static ClientListener getInstance() { return instance; }
 	
@@ -48,6 +54,8 @@ public class ClientListener implements Runnable{
 			ois = new ObjectInputStream(socket.getInputStream()); // receive data from server socket
 			
 			User client = new User(clientIP, nickname, Status.CONNECTED);
+			
+			
 			oos.writeObject(client);
 			System.out.println("is connected the server socket");
 		} catch (IOException e) {
@@ -81,7 +89,14 @@ public class ClientListener implements Runnable{
 			
 			switch (status) {
 			case CONNECTED:
-				System.out.println("roomListController - login!! ");
+				//현재 접속 유저 
+				//List<User> nowUserList = user.getUserList();
+				
+				System.out.println("WaitingRoomController - login!! ");
+				
+				user.setOos(oos);
+				createRoom();
+				
 				
 				break;
 			case INCORRECT:
@@ -138,9 +153,28 @@ public class ClientListener implements Runnable{
 		}
 	}
 	
+	public void createRoom() {
+		try {
+			System.out.println("createRoom");
+			
+			Room room = new Room(user, "게임방!!!", 8, RoomStatus.WAITING);
+			//User data = new User();
+			user.setGameRoom(room);
+			user.setNickname("ibi");
+			user.setStatus(Status.WAITING);
+			
+			user.getOos().writeObject(user);
+			//oos.writeObject(data);
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		new ClientListener("127.0.0.1", 5555, "bing").createConnect();
-		Thread listener = new Thread();
 	}
 
 }
