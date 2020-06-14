@@ -10,15 +10,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.RoomListController">
    <center>
-      <TableView prefHeight="240.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="roomList" prefHeight="240.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="번호" />
-          <TableColumn prefWidth="600.0" text="제목" />
-            <TableColumn prefWidth="75.0" text="인원" />
-            <TableColumn prefWidth="190.0" text="접속" />
+          <TableColumn fx:id="roomNo" prefWidth="75.0" text="번호" />
+          <TableColumn fx:id="roomName" prefWidth="600.0" text="제목" />
+            <TableColumn fx:id="userCnt" prefWidth="75.0" text="인원" />
+            <TableColumn fx:id="enterButton" prefWidth="190.0" text="접속" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -26,9 +25,9 @@
       </TableView>
    </center>
    <right>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="userList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="200.0" sortable="false" text="접속자 (0명)" />
+          <TableColumn fx:id="userName" prefWidth="200.0" sortable="false" text="접속자 (0명)" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="20.0" right="20.0" top="20.0" />
@@ -38,24 +37,24 @@
    <bottom>
       <AnchorPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="45.0" layoutY="55.0" prefHeight="50.0" prefWidth="652.0" text="빠른 입장은 랜덤매칭을 이용해 주시기 바랍니다.">
+            <Label fx:id="noticeLabel" layoutX="45.0" layoutY="55.0" prefHeight="50.0" prefWidth="652.0" text="빠른 입장은 랜덤매칭을 이용해 주시기 바랍니다.">
                <font>
                   <Font name="Dotum" size="29.0" />
                </font>
             </Label>
             <ButtonBar layoutX="673.0" layoutY="41.0" prefHeight="78.0" prefWidth="497.0">
               <buttons>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="그림 마당">
+                <Button fx:id="galleryButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="그림 마당">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="방 만들기">
+                  <Button fx:id="createRoomButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="방 만들기">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="랜덤 매칭">
+                  <Button fx:id="randomMatchingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="랜덤 매칭">
                      <font>
                         <Font size="24.0" />
                      </font>
