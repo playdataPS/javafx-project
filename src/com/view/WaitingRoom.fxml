@@ -74,7 +74,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #42A5F5; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+            <Pane id="user1" fx:id="user1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #42A5F5; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
                <children>
                   <Label fx:id="UserLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="34.0" prefHeight="44.0" prefWidth="268.0" text="닉네임1">
                      <font>
@@ -87,7 +87,7 @@
                   <String fx:value="on" />
                   <String fx:value="non-ready" />
                </styleClass></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EF5350; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" GridPane.columnIndex="1">
+            <Pane id="user2" fx:id="user2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EF5350; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" GridPane.columnIndex="1">
                <children>
                   <Label fx:id="UserLabel2" alignment="CENTER" contentDisplay="CENTER" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="닉네임2">
                      <font>
@@ -99,7 +99,7 @@
                   <String fx:value="on" />
                   <String fx:value="ready" />
                </styleClass></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="2">
+            <Pane id="user3" fx:id="user3" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="2">
                <children>
                   <Label fx:id="UserLabel3" alignment="CENTER" contentDisplay="CENTER" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="닉네임3">
                      <font>
@@ -107,7 +107,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="3">
+            <Pane id="user4" fx:id="user4" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="3">
                <children>
                   <Label fx:id="UserLabel4" alignment="CENTER" contentDisplay="CENTER" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="닉네임4">
                      <font>
@@ -115,7 +115,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.rowIndex="1">
+            <Pane id="user5" fx:id="user5" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="UserLabel5" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="닉네임5">
                      <font>
@@ -123,7 +123,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Pane id="user6" fx:id="user6" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="UserLabel6" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="닉네임6">
                      <font>
@@ -131,7 +131,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Pane id="user7" fx:id="user7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="UserLabel7" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="33.0" prefHeight="44.0" prefWidth="268.0" text="X">
                      <font>
@@ -139,7 +139,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Pane id="user8" fx:id="user8" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #eee; -fx-background-radius: 5px;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="UserLabel8" alignment="CENTER" contentDisplay="CENTER" layoutY="33.0" prefHeight="44.0" prefWidth="268.0">
                      <font>
@@ -153,9 +153,8 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextArea fx:id="chatArea" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+                  <TextArea fx:id="chatArea" layoutX="25.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="43.0" prefWidth="736.0">
                <children>
                   <TextField fx:id="input" layoutX="14.0" layoutY="8.0" prefHeight="42.0" prefWidth="590.0" text="메세지를 입력해주세요">
@@ -163,7 +162,7 @@
                         <Font name="D2Coding" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="submitButton" layoutX="613.0" layoutY="11.0" mnemonicParsing="false" onAction="#submitAppend" prefHeight="36.0" prefWidth="101.0" text="입력" textFill="#424242">
+                  <Button fx:id="submitButton" layoutX="613.0" layoutY="11.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="101.0" text="입력" textFill="#424242">
                      <font>
                         <Font name="D2Coding" size="14.0" />
                      </font>
@@ -181,7 +180,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="readyStart" mnemonicParsing="false" onAction="#readyStartState" prefHeight="104.0" prefWidth="243.0" style="-fx-background-color: #EF5350; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" styleClass="btn-ready" text="준비" textFill="WHITE">
+            <Button fx:id="readyStart" mnemonicParsing="false" onAction="#ChangeReadyColor" prefHeight="104.0" prefWidth="243.0" style="-fx-background-color: #EF5350; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);" styleClass="btn-ready" text="준비" textFill="WHITE">
                <font>
                   <Font name="D2Coding Bold" size="45.0" />
                </font>

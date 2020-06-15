@@ -1,6 +1,7 @@
 package com.main;
 
 import com.client.Client;
+import com.view.AnswerController;
 import com.view.DrawController;
 import com.view.LoginController;
 import com.view.RoomListController;
@@ -64,9 +65,11 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 //		initLogin();
 //		initRoomList();
-//		initWaitingRoom();
+		User user = new User("건동");
+		Room room = new Room("들어오세요", 8);
+		initWaitingRoom(user, room);
 //		initAnswer();
-		initDraw();
+//		initDraw();
 //		initSetting();
 //		initScore();
 	}
@@ -98,8 +101,13 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			
+			Stage waitingRoomStage = new Stage();
+			waitingRoomStage.setTitle("Room List");
+			waitingRoomStage.initModality(Modality.WINDOW_MODAL);
+			waitingRoomStage.initOwner(primaryStage);
+	        
 			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
+			waitingRoomStage.setScene(scene);
 			
 			WaitingRoomController controller = loader.getController();
 	        controller.setMainApp(this);
@@ -113,8 +121,8 @@ public class MainApp extends Application {
 	        getRoomData().add(room);
 	        getUserListOfWaitingRoom().add(user);
 			
-			primaryStage.show(); 
-			primaryStage.setResizable(false);
+	        waitingRoomStage.show(); 
+	        waitingRoomStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,8 +136,8 @@ public class MainApp extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			
-			//MainAppController controller = loader.getController();
-			//controller.setMainApp(this);
+			AnswerController controller = loader.getController();
+			controller.setMainApp(this);
 			
 			primaryStage.show(); 
 			primaryStage.setResizable(false);

@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class WaitingRoomController {
@@ -44,6 +45,22 @@ public class WaitingRoomController {
 	private Button readyStart;
 	@FXML
 	private Button exitButton;
+	@FXML
+	private Pane user1;
+	@FXML
+	private Pane user2;
+	@FXML
+	private Pane user3;
+	@FXML
+	private Pane user4;
+	@FXML
+	private Pane user5;
+	@FXML
+	private Pane user6;
+	@FXML
+	private Pane user7;
+	@FXML
+	private Pane user8;
 	
 	private Stage waitingRoomStage;
 	
@@ -52,6 +69,8 @@ public class WaitingRoomController {
 	private Room room;
 	
 	private User user;
+	
+	private String state = "R";
 
 	public WaitingRoomController() {
 		super();
@@ -114,6 +133,19 @@ public class WaitingRoomController {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+	
+	public void ChangeReadyColor() {
+		//사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
+		if(state=="R") {
+			readyStart.setStyle("-fx-background-color :  #42A5F5;");
+			user1.setStyle("-fx-background-color :  #EF5350;");
+			state="B";
+		}else {
+			readyStart.setStyle("-fx-background-color : #EF5350;");
+			user1.setStyle("-fx-background-color :  #42A5F5;");
+			state="R";
+		}
 	}
 
 	@FXML

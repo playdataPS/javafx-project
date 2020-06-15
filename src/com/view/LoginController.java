@@ -1,6 +1,7 @@
 package com.view;
 
 import com.main.MainApp;
+import com.vo.Room;
 import com.vo.User;
 
 import javafx.fxml.FXML;
@@ -53,7 +54,8 @@ public class LoginController {
 			alert.showAndWait();
 		} else {
 			User user = new User(nickname);
-			mainApp.initRoomList(user);	
+			Room room = new Room("들어오세요", 8);
+			mainApp.initWaitingRoom(user, room);
 		}
 	}
 }
