@@ -1,14 +1,18 @@
 package com.view;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.main.MainApp;
 import com.vo.GameUser;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -24,7 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class DrawController {
+public class DrawController implements Initializable{
 //	@FXML
 //	private Label word_num1;
 	@FXML
@@ -53,6 +57,8 @@ public class DrawController {
 	private ColorPicker cPick;
 	@FXML
 	private Slider slider;
+	@FXML
+	private Label user;
 	
 	private GraphicsContext gc;
 	
@@ -97,10 +103,6 @@ public class DrawController {
         
         freeDrawing();
     }
-    
-	private void initialize() {
-		player.setCellValueFactory(cellData -> cellData.getValue().getPlayer());
-	}
 	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -133,6 +135,11 @@ public class DrawController {
 		}		
 	}
 	
+	public void Turn(String userturn) {
+		user.setText(userturn);
+
+	}
+	
 	@FXML
 	private void submitBtn() {
 		chat.appendText(inputchat.getText());
@@ -141,5 +148,34 @@ public class DrawController {
 	@FXML
 	private void exitbtn() {
 		drawStage.hide();
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		player.setCellValueFactory(cellData -> cellData.getValue().getPlayer());
+		
+		GameWord();
+		
+		Turn("jihye");
+		
+		
+		Task<Boolean> task = new Task<Boolean>() {
+
+			@Override
+			protected Boolean call() throws Exception {
+				boolean flag = false;
+				for (int i = 0; i <= 50; i++) {
+					updateProgress(i, 50);
+					Thread.sleep(160);
+					flag = true;
+				}
+				return flag;
+			}
+
+		};// task end
+		
+		bar.progressProperty().bind(task.progressProperty());
+		Thread thread = new Thread(task);
+		thread.start();
 	}
 }

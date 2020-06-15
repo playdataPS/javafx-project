@@ -115,6 +115,10 @@ public class WaitingRoomController {
 		MaxUserCount.setText(room.getUserCnt().get().substring(room.getUserCnt().get().length()-1, room.getUserCnt().get().length()));
 	}
 	
+	public void changeCurrNum(int x) {
+		CurrUserCount.setText(String.valueOf(x));
+	}
+	
 	public void changeLabel1() {
 		UserLabel1.setText(user.getNickname().get());
 	}

@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+=======
+encoding//src/common/JDBCTemplate.java=UTF-8
+>>>>>>> master
 encoding/<project>=UTF-8
