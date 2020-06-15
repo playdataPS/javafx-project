@@ -40,18 +40,27 @@ public class ClientListener implements Runnable{
 	
 	
 	
-	
+	public ClientListener(String serverIP, int serverPORT, User user) {
+		this.serverIP = serverIP;
+		this.serverPORT = serverPORT;
+		this.user = user;
+	}
 	public ClientListener(String serverIP, int serverPORT, String nickname) {
 		this.serverIP = serverIP;
 		this.serverPORT = serverPORT;
 		this.nickname = nickname;
 	}
 	
+	
+	
 	public void createConnect() {
 		try {
 			socket = new Socket(serverIP, serverPORT); //create client's socket
 			oos = new ObjectOutputStream(socket.getOutputStream()); // send data to server socket 
 			ois = new ObjectInputStream(socket.getInputStream()); // receive data from server socket
+			
+			clientIP = user.getIp();
+			nickname = user.getNickname();
 			
 			User client = new User(clientIP, nickname, Status.CONNECTED);
 			
@@ -94,10 +103,9 @@ public class ClientListener implements Runnable{
 				
 				System.out.println("WaitingRoomController - login!! ");
 				
+				
 				user.setOos(oos);
-				createRoom();
-				
-				
+				//createRoom();
 				break;
 			case INCORRECT:
 				System.out.println("loginController - try again ");
@@ -106,6 +114,7 @@ public class ClientListener implements Runnable{
 			case DISCONNECTED:
 				userList.remove(user);
 				System.out.println("update userList");
+				flag = true;
 				break;
 			case HIDE:
 				System.out.println("game playing  GameController> role - hide ");
@@ -122,6 +131,14 @@ public class ClientListener implements Runnable{
 			
 			case WAITING:
 				System.out.println("game WaitingRoomController > status - waiting ");
+				user.setOos(oos);
+				user.setStatus(Status.READY);
+				try {
+					user.getOos().writeObject(user);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			default:
 				System.out.println("error");
@@ -174,7 +191,9 @@ public class ClientListener implements Runnable{
 	}
 	
 	public static void main(String[] args) {
-		new ClientListener("127.0.0.1", 5555, "bing").createConnect();
+		User userData = new User("127.0.0.1", "eunhye");
+		
+		new ClientListener("127.0.0.1", 5555, userData).createConnect();
 	}
 
 }
