@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import com.main.MainApp;
 import com.vo.GameUser;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -22,16 +22,16 @@ import javafx.scene.control.TextField;
 
 public class AnswerController implements Initializable{
 	
-	@FXML
-	private Label word_num1;
+//	@FXML
+//	private Label word_num1;
 	@FXML
 	private Label word_num2;
 	@FXML
 	private Label word_num3;
 	@FXML
 	private Label word_num4;
-	@FXML
-	private Label word_num5;
+//	@FXML
+//	private Label word_num5;
 	@FXML
 	private ProgressBar bar;
 	@FXML
@@ -64,7 +64,7 @@ public class AnswerController implements Initializable{
 	
 	private Room room;
 	
-	private User2 user2;
+	private User user2;
 	
 	public void Turn() {
 		
@@ -112,9 +112,6 @@ public class AnswerController implements Initializable{
 		this.mainApp = mainApp;
 
 		playerlist.setItems(mainApp.getGameUsers());
-	
-
-		
 	}
 	
 	@FXML

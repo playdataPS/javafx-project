@@ -1,42 +1,52 @@
 package com.view;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.main.MainApp;
 import com.vo.GameUser;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class DrawController implements Initializable{
-	@FXML
-	private Label word_num1;
+//	@FXML
+//	private Label word_num1;
 	@FXML
 	private Label word_num2;
 	@FXML
 	private Label word_num3;
 	@FXML
 	private Label word_num4;
+//	@FXML
+//	private Label word_num5;
 	@FXML
-	private Label word_num5;
-	@FXML
-	private ProgressBar bar;
+	private ProgressBar bar; 
 	@FXML
 	private Button send;
 	@FXML
 	private Canvas canvas;
 	@FXML
-	private TableView<GameUser> playerlist;
+	private TableView<GameUser> playerlist ;
 	@FXML
 	private TableColumn<GameUser, String> player;
 	@FXML
@@ -44,57 +54,100 @@ public class DrawController implements Initializable{
 	@FXML
 	private TextArea chat;
 	@FXML
+	private ColorPicker cPick;
+	@FXML
+	private Slider slider;
+	@FXML
 	private Label user;
-
-	// 메인 애플리케이션 참조
-	private MainApp mainApp;
-
-	// db의 WORD 불러옴.
-	private String word = "라라라";
 	
-	private String userturn = "jihye";
+	private GraphicsContext gc;
+	
+    double startX, startY, lastX,lastY,oldX,oldY;
+    double hg;
 
+	private MainApp mainApp;
+	
+	private String word="바나나";
+	
+	private Stage drawStage;
 
-	// 생성자. initialize() 메서드 이전에 호출
 	public DrawController() {
 		super();
 	}
-
 	
-	// 참조를 다시 유지하기 위해 메인 애플리케이션이 호한다.
+    public void setDrawStage(Stage drawStage) {
+		this.drawStage = drawStage;
+	}
+
+	private void freeDrawing()
+    {
+        gc.setLineWidth(slider.getValue());
+        gc.setStroke(cPick.getValue());
+        gc.strokeLine(oldX, oldY, lastX, lastY);
+        oldX = lastX;
+        oldY = lastY;
+    }
+	
+	@FXML
+    private void onMousePressedListener(MouseEvent e){
+        this.startX = e.getX();
+        this.startY = e.getY();
+        this.oldX = e.getX();
+        this.oldY = e.getY();
+    }
+	
+    @FXML
+    private void onMouseDraggedListener(MouseEvent e){
+        this.lastX = e.getX();
+        this.lastY = e.getY();
+        
+        freeDrawing();
+    }
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-
+	
 		playerlist.setItems(mainApp.getGameUsers());
-		//GameWord();
-
-	}
-
+		
+		GameWord();
+		
+		gc = canvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		slider.setMin(1);
+		slider.setMax(50);
+		
+		cPick.setValue(Color.BLACK);
+		
+		inputchat.requestFocus();
+	}	
 	public void GameWord() {
-
 		char[] charArr = word.toCharArray();
-
-		if (String.valueOf(charArr[0]) != null) {
+		
+		if(String.valueOf(charArr[0]) != null) {
 			word_num2.setText(String.valueOf(charArr[0]));
 		}
-		if (String.valueOf(charArr[1]) != null) {
+		if(String.valueOf(charArr[1]) != null) {
 			word_num3.setText(String.valueOf(charArr[1]));
 		}
-		if (String.valueOf(charArr[2]) != null) {
+		if(String.valueOf(charArr[2]) != null) {
 			word_num4.setText(String.valueOf(charArr[2]));
-		}
-//         if(String.valueOf(charArr[3]) != null) {
-//            word_num4.setText(String.valueOf(charArr[3]));
-//         }
-//         if(String.valueOf(charArr[4]) != null) {
-//            word_num5.setText(String.valueOf(charArr[4]));
-//         }
+		}		
 	}
 	
-	public void Turn() {
-		
+	public void Turn(String userturn) {
 		user.setText(userturn);
-		
+
+	}
+	
+	@FXML
+	private void submitBtn() {
+		chat.appendText(inputchat.getText());
+	}
+	
+	@FXML
+	private void exitbtn() {
+		drawStage.hide();
 	}
 
 	@Override
@@ -102,33 +155,27 @@ public class DrawController implements Initializable{
 		player.setCellValueFactory(cellData -> cellData.getValue().getPlayer());
 		
 		GameWord();
-		Turn();
-	
+		
+		Turn("jihye");
+		
+		
 		Task<Boolean> task = new Task<Boolean>() {
-			
+
 			@Override
 			protected Boolean call() throws Exception {
 				boolean flag = false;
-				for (int i = 0; i<=50; i++) {
+				for (int i = 0; i <= 50; i++) {
 					updateProgress(i, 50);
-					Thread.sleep(130);
+					Thread.sleep(160);
 					flag = true;
 				}
 				return flag;
 			}
-			
-		};//task end 
+
+		};// task end
 		
-		
-//		System.out.println("result : "+task.getValue());
 		bar.progressProperty().bind(task.progressProperty());
 		Thread thread = new Thread(task);
 		thread.start();
-
-	}
-
-	@FXML
-	private void exitApp() {
-		System.exit(0);
 	}
 }

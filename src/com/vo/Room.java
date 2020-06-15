@@ -10,18 +10,19 @@ public class Room {
 	private final StringProperty name;
 	private final StringProperty userCnt;
 	private final StringProperty enterButton;
+	private int[] userCntArr;
 	public Room(String roomName, int maxNum) {
 		this.no = new SimpleIntegerProperty(0);
 		this.name = new SimpleStringProperty(roomName);
 		this.userCnt = new SimpleStringProperty("0/ " + String.valueOf(maxNum));
 		this.enterButton = new SimpleStringProperty("들어가기");
 	}
-//	public Room(String roomName, int curNum, int maxNum) {
-//		this.no = new SimpleIntegerProperty(0);
-//		this.name = new SimpleStringProperty(roomName);
-//		this.userCnt = new SimpleStringProperty(String.valueOf(curNum)+ "/ " + String.valueOf(maxNum));
-//		this.enterButton = new SimpleStringProperty("들어가기");
-//	}
+	public Room(String roomName, int currNum, int maxNum) {
+		this.no = new SimpleIntegerProperty(0);
+		this.name = new SimpleStringProperty(roomName);
+		this.userCnt = new SimpleStringProperty(String.valueOf(currNum)+ "/ " + String.valueOf(maxNum));
+		this.enterButton = new SimpleStringProperty("들어가기");
+	}
 	public Room(int no, String name) {
 		this.no = new SimpleIntegerProperty(no);
 		this.name = new SimpleStringProperty(name);
@@ -49,6 +50,14 @@ public class Room {
 	}
 	public StringProperty getUserCnt() {
 		return userCnt;
+	}
+	public int[] getUserCntArr(StringProperty userCnt) {
+		userCntArr = new int[2];
+		int currNum = Integer.parseInt(userCnt.get().substring(0, 1));
+		int maxNum = Integer.parseInt(userCnt.get().substring(userCnt.get().length()-1, userCnt.get().length()));
+		userCntArr[0] = currNum;
+		userCntArr[1] = maxNum;
+		return userCntArr;
 	}
 	public void setUserCnt(String userCnt) {
 		this.userCnt.set(userCnt);

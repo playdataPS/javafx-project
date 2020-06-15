@@ -1,23 +1,18 @@
 package com.view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class WaitingRoomController implements Initializable{
+public class WaitingRoomController {
 	@FXML
 	private Label RoomNameLabel;
 	@FXML
@@ -42,8 +37,6 @@ public class WaitingRoomController implements Initializable{
 	private Label UserLabel8;
 	@FXML
 	private TextArea chatArea;
-//	@FXML
-//	private ScrollPane sp;
 	@FXML
 	private TextField input;
 	@FXML
@@ -52,12 +45,6 @@ public class WaitingRoomController implements Initializable{
 	private Button readyStart;
 	@FXML
 	private Button exitButton;
-	
-	private Stage waitingRoomStage;
-	
-	private Room room;
-	private User2 user;
-	
 	@FXML
 	private Pane user1;
 	@FXML
@@ -75,7 +62,13 @@ public class WaitingRoomController implements Initializable{
 	@FXML
 	private Pane user8;
 	
+	private Stage waitingRoomStage;
+	
 	private MainApp mainApp;
+	
+	private Room room;
+	
+	private User user;
 	
 	private String state = "R";
 
@@ -98,8 +91,6 @@ public class WaitingRoomController implements Initializable{
 		input.requestFocus();
 	}
 	
-	
-	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		CurrUserCount.setText(String.valueOf(mainApp.getUserListOfRoomList().size()));
@@ -111,6 +102,7 @@ public class WaitingRoomController implements Initializable{
 	public Stage getWaitingRoomStage() {
 		return waitingRoomStage;
 	}
+
 	public void setWaitingRoomStage(Stage waitingRoomStage) {
 		this.waitingRoomStage = waitingRoomStage;
 	}
@@ -123,15 +115,19 @@ public class WaitingRoomController implements Initializable{
 		MaxUserCount.setText(room.getUserCnt().get().substring(room.getUserCnt().get().length()-1, room.getUserCnt().get().length()));
 	}
 	
+	public void changeCurrNum(int x) {
+		CurrUserCount.setText(String.valueOf(x));
+	}
+	
 	public void changeLabel1() {
 		UserLabel1.setText(user.getNickname().get());
 	}
 	
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -142,16 +138,8 @@ public class WaitingRoomController implements Initializable{
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-
-	@FXML
-	private void submitAppend() {
-		chatArea.appendText(input.getText()+"\n");
-		input.setText("");
-		input.requestFocus();
-	}
 	
 	public void ChangeReadyColor() {
-		
 		//사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
 		if(state=="R") {
 			readyStart.setStyle("-fx-background-color :  #42A5F5;");
@@ -163,16 +151,19 @@ public class WaitingRoomController implements Initializable{
 			state="R";
 		}
 	}
-	
-	@FXML
-	private void exitApp() {
-		System.exit(0);
-	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+	@FXML
+	private void submitAppend() {
+		chatArea.appendText(input.getText()+"\n");
+		input.setText("");
+		input.requestFocus();
+	}
+	@FXML
+	private void readyStartState() {
 		
 	}
-	
+	@FXML
+	private void exitApp() {
+		waitingRoomStage.hide();
+	}
 }
