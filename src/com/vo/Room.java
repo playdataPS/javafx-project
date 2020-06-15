@@ -1,95 +1,62 @@
 package com.vo;
 
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-public class Room implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int no;//방번호
-	private List<User> userList;//유저 리스트 
-	private User roomOwner;//방장
-	private String title;//방이름
-	private RoomStatus status;//방상태 
-	private int maxSize;
-	private transient ObjectOutputStream oos;
-	
+public class Room {
+	private final IntegerProperty no;
+	private final StringProperty name;
+	private final StringProperty userCnt;
+	private final StringProperty enterButton;
+	public Room(String roomName, int maxNum) {
+		this.no = new SimpleIntegerProperty(0);
+		this.name = new SimpleStringProperty(roomName);
+		this.userCnt = new SimpleStringProperty("0/ " + String.valueOf(maxNum));
+		this.enterButton = new SimpleStringProperty("들어가기");
+	}
+//	public Room(String roomName, int curNum, int maxNum) {
+//		this.no = new SimpleIntegerProperty(0);
+//		this.name = new SimpleStringProperty(roomName);
+//		this.userCnt = new SimpleStringProperty(String.valueOf(curNum)+ "/ " + String.valueOf(maxNum));
+//		this.enterButton = new SimpleStringProperty("들어가기");
+//	}
+	public Room(int no, String name) {
+		this.no = new SimpleIntegerProperty(no);
+		this.name = new SimpleStringProperty(name);
+		
+		this.userCnt = new SimpleStringProperty("0/ 0");
+		this.enterButton = new SimpleStringProperty("들어가기");
+	}
 	public Room() {
-		// TODO Auto-generated constructor stub
+		this((Integer) null, null);
 	}
-	
-	public Room(int no, User roomOwner, String title, int maxSize, RoomStatus status, ObjectOutputStream oos) {
-		this.no = no;
-		this.roomOwner = roomOwner;
-		this.title = title;
-		this.maxSize = maxSize;
-		this.status = status;
-		this.oos = oos;
-	}
-	public Room(User roomOwner, String title, int maxSize, RoomStatus status) {
-		this(-1,roomOwner, title, maxSize, status, null);
-	}
-	
-	public Room(int no, User roomOwner, String title, int maxSize, RoomStatus status) {
-		this(no, roomOwner, title, maxSize, status, null);
-	}
-	
-	public ObjectOutputStream getOos() {
-		return oos;
-	}
-	public void setOos(ObjectOutputStream oos) {
-		this.oos = oos;
-	}
-	public int getNo() {
+	public IntegerProperty getNo() {
 		return no;
 	}
-
 	public void setNo(int no) {
-		this.no = no;
+		this.no.set(no);
 	}
-
-	public List<User> getUserList() {
-		return userList;
+	public StringProperty getName() {
+		return name;
 	}
-
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
+	public String getNameString() {
+		return name.get();
 	}
-
-	public User getRoomOwner() {
-		return roomOwner;
+	public void setName(String name) {
+		this.name.set(name);
 	}
-
-	public void setRoomOwner(User roomOwner) {
-		this.roomOwner = roomOwner;
+	public StringProperty getUserCnt() {
+		return userCnt;
 	}
-
-	public String getTitle() {
-		return title;
+	public void setUserCnt(String userCnt) {
+		this.userCnt.set(userCnt);
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public StringProperty getEnterButton() {
+		return enterButton;
 	}
-
-	public RoomStatus getStatus() {
-		return status;
+	public void setEnterButton(String enterButton) {
+		this.enterButton.set(enterButton);
 	}
-
-	public void setStatus(RoomStatus status) {
-		this.status = status;
-	}
-
-	public int getMaxSize() {
-		return maxSize;
-	}
-	
-	public void setMaxSize(int maxSize) {
-		this.maxSize = maxSize;
-	}
-	
-	
 }
