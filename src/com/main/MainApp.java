@@ -63,11 +63,9 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-//		initLogin();
+		initLogin();
 //		initRoomList();
-		User user = new User("건동");
-		Room room = new Room("들어오세요", 8);
-		initWaitingRoom(user, room);
+//		initWaitingRoom(user, room);
 //		initAnswer();
 //		initDraw();
 //		initSetting();
@@ -121,6 +119,7 @@ public class MainApp extends Application {
 	        getRoomData().add(room);
 	        getUserListOfWaitingRoom().add(user);
 			
+	        primaryStage.hide();
 	        waitingRoomStage.show(); 
 	        waitingRoomStage.setResizable(false);
 		} catch (Exception e) {
