@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import com.main.MainApp;
-import com.vo.Data;
 import com.vo.Room;
 import com.vo.User;
 
@@ -58,7 +57,7 @@ public class RoomListController {
 		userCnt.setCellValueFactory(cellData -> cellData.getValue().getUserCnt());
 		enterButton.setCellValueFactory(cellData -> cellData.getValue().getEnterButton());
 		noticeLabel.setText("빠른 실행을 위해서는 랜덤매칭을 눌러주세요.");
-		userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
+		//userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
 	}
 	
 	public void setMainApp(MainApp mainApp) {

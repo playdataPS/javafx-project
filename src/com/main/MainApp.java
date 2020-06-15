@@ -1,15 +1,15 @@
 package com.main;
 
-import com.client.Client;
+import com.client.ClientListener;
 import com.view.AnswerController;
 import com.view.DrawController;
 import com.view.LoginController;
 import com.view.RoomListController;
 import com.view.SettingController;
 import com.view.WaitingRoomController;
-import com.vo.Data;
 import com.vo.GameUser;
 import com.vo.Room;
+import com.vo.Status;
 import com.vo.User;
 
 import javafx.application.Application;
@@ -63,7 +63,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-//		initLogin();
+		initLogin();
 //		initRoomList();
 //		initWaitingRoom(user, room);
 //		initAnswer();
@@ -89,6 +89,7 @@ public class MainApp extends Application {
 			
 			primaryStage.show(); 
 			primaryStage.setResizable(false);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,9 +179,16 @@ public class MainApp extends Application {
 	        RoomListController controller = loader.getController();
 	        controller.setRoomListStage(roomListStage);
 	        controller.setUser(user);
-	        Client cli = new Client(user, Data.FIRST_CONNECTION);
-	        
-	        getUserListOfRoomList().add(user);
+	        //Client cli = new Client(user, Status.CONNECTED);
+//	        ClientListener listener = 
+//	        getUserListOfRoomList().add(user);
+	        System.out.println("--------client data--------");
+	        System.out.println(user.getNickname());
+	        System.out.println(user.getIp());
+	        System.out.println("--------client data--------");
+//	        User userData = new User("127.0.0.1", "eunhye");
+//			
+//			new ClientListener("127.0.0.1", 5555, userData).createConnect();
 
 	        controller.setMainApp(this);
 	        primaryStage.hide();

@@ -53,7 +53,12 @@ public class LoginController {
 			
 			alert.showAndWait();
 		} else {
-			User user = new User(nickname);
+			User user = new User();
+			user.setNickname(nickname);
+			 System.out.println("--------client data--------");
+		        System.out.println(user.getNickname());
+		        System.out.println("--------client data--------");
+			//user.setNickname(nickname);
 			Room room = new Room("들어오세요", 8);
 			mainApp.initWaitingRoom(user, room);
 		}

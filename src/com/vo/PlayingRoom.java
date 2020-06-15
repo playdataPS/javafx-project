@@ -25,7 +25,7 @@ public class PlayingRoom implements Serializable {
 	// 게임 시작 시 실행
 	public void turnUserSet() {
 		for (User user1 : userList) {
-			turnUserList.add(user1.getNickname().get());
+			turnUserList.add(user1.getNickname());
 		}
 		currUserNum = userList.size();
 	}
