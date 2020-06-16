@@ -1,16 +1,11 @@
 package com.view;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.main.MainApp;
-import com.vo.GameUser;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -20,48 +15,55 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class DrawController implements Initializable{
-//	@FXML
-//	private Label word_num1;
+	@FXML
+	private ProgressBar bar; 
+	@FXML
+	private Label user;
+	@FXML
+	private Button out;
+	@FXML
+	private Button send;
+	@FXML
+	private TextField inputchat;
+	@FXML
+	private TextArea chat;
 	@FXML
 	private Label word_num2;
 	@FXML
 	private Label word_num3;
 	@FXML
 	private Label word_num4;
-//	@FXML
-//	private Label word_num5;
 	@FXML
-	private ProgressBar bar; 
+	private Label user1;
 	@FXML
-	private Button send;
+	private Label user2;
 	@FXML
-	private Button out;
+	private Label user3;
+	@FXML
+	private Label user4;
+	@FXML
+	private Label user5;
+	@FXML
+	private Label user6;
+	@FXML
+	private Label user7;
+	@FXML
+	private Label user8;
+	@FXML
+	private Label user11;
 	@FXML
 	private Canvas canvas;
-	@FXML
-	private TableView<GameUser> playerlist ;
-	@FXML
-	private TableColumn<GameUser, String> player;
-	@FXML
-	private TextField inputchat;
-	@FXML
-	private TextArea chat;
 	@FXML
 	private ColorPicker cPick;
 	@FXML
 	private Slider slider;
-	@FXML
-	private Label user;
 	
 	private GraphicsContext gc;
 	
@@ -82,8 +84,7 @@ public class DrawController implements Initializable{
 		this.drawStage = drawStage;
 	}
 
-	private void freeDrawing()
-    {
+	private void freeDrawing(){
         gc.setLineWidth(slider.getValue());
         gc.setStroke(cPick.getValue());
         gc.strokeLine(oldX, oldY, lastX, lastY);
@@ -113,8 +114,6 @@ public class DrawController implements Initializable{
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	
-		playerlist.setItems(mainApp.getGameUsers());
-		
 		GameWord();
 		
 		gc = canvas.getGraphicsContext2D();
@@ -127,6 +126,7 @@ public class DrawController implements Initializable{
 		
 		inputchat.requestFocus();
 	}	
+	
 	public void GameWord() {
 		char[] charArr = word.toCharArray();
 		
@@ -143,7 +143,6 @@ public class DrawController implements Initializable{
 	
 	public void Turn(String userturn) {
 		user.setText(userturn);
-
 	}
 	
 	@FXML
@@ -158,8 +157,6 @@ public class DrawController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		player.setCellValueFactory(cellData -> cellData.getValue().getPlayer());
-		
 		GameWord();
 		
 		Turn("jihye");
