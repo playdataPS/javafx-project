@@ -2,6 +2,7 @@ package com.view;
 
 import com.main.MainApp;
 import com.vo.Room;
+import com.vo.User;
 import com.vo.User2;
 
 import javafx.fxml.FXML;
@@ -68,7 +69,7 @@ public class WaitingRoomController {
 	
 	private Room room;
 	
-	private User2 user;
+	private User user;
 	
 	private String state = "R";
 
@@ -123,11 +124,11 @@ public class WaitingRoomController {
 		//UserLabel1.setText(user.getNickname().get());
 	}
 	
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

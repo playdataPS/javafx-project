@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User2;
+import com.vo.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,26 +30,26 @@ public class RoomListController {
 	@FXML
 	private Label noticeLabel;
 	@FXML
-	private TableView<User2> userList;
+	private TableView<User> userList;
 	@FXML
-	private TableColumn<User2, String> userName;
+	private TableColumn<User, String> userName;
 	@FXML
 	private Button galleryButton;
 	@FXML
 	private Button createRoomButton;
 	@FXML
 	private Button randomMatchingButton;
-	
+
 	private MainApp mainApp;
-	 
+
 	private Stage roomListStage;
-	
-	private User2 user;
-	
+
+	private User user;
+
 	public RoomListController() {
 		super();
 	}
-	
+
 	@FXML
 	private void initialize() {
 		roomNo.setCellValueFactory(cellData -> cellData.getValue().getNo().asObject());
@@ -57,18 +57,18 @@ public class RoomListController {
 		userCnt.setCellValueFactory(cellData -> cellData.getValue().getUserCnt());
 		enterButton.setCellValueFactory(cellData -> cellData.getValue().getEnterButton());
 		noticeLabel.setText("빠른 실행을 위해서는 랜덤매칭을 눌러주세요.");
-		//userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
+		// userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		
+
 		roomList.setItems(mainApp.getRoomData());
 		userList.setItems(mainApp.getUserListOfRoomList());
 
 		userName.setText("접속자 (" + userList.getItems().size() + "명)");
 	}
-	
+
 	public Stage getRoomListStage() {
 		return roomListStage;
 	}
@@ -77,24 +77,26 @@ public class RoomListController {
 		this.roomListStage = roomListStage;
 	}
 
-	public User2 getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(User2 user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
 	@FXML
 	private void goToGallery() {
-		
+
 	}
+
 	@FXML
 	private void createRoom() {
 		mainApp.initSetting(user);
 	}
+
 	@FXML
 	private void randomMatch() {
-		
+
 	}
 }
