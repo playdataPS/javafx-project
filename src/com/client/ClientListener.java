@@ -69,7 +69,7 @@ public class ClientListener implements Runnable {
 			clientIP = socket.getLocalAddress().toString();
 			System.out.println("ip를 가져옵니다" + clientIP);
 			System.out.println(nickname);
-			User client = new User(clientIP, nickname, Status.CONNECTED,oos);
+			User client = new User(clientIP, nickname, Status.CONNECTED);
 			oos.writeObject(client);
 			System.out.println("is connected the server socket");
 
