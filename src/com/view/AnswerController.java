@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import com.main.MainApp;
 import com.vo.GameUser;
 import com.vo.Room;
-import com.vo.User;
+import com.vo.User2;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -64,7 +64,7 @@ public class AnswerController implements Initializable{
 	
 	private Room room;
 	
-	private User user2;
+	private User2 user2;
 	
 	public void Turn() {
 		

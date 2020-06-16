@@ -9,18 +9,18 @@ public class PlayingRoom implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	// 방장
-	private User user;
+	private User2 user;
 	private String roomName;
-	private ArrayList<User> userList = new ArrayList<User>();
+	private ArrayList<User2> userList = new ArrayList<User2>();
 	private ArrayList<String> words;
 	
 	// 방안의 플레이어
-	private User turnUser;
+	private User2 turnUser;
 	private int pointer = 0;
 	private ArrayList<String> turnUserList = new ArrayList<String>();
 	private int currUserNum;
 	
-	public PlayingRoom(User user, String roomName) {
+	public PlayingRoom(User2 user, String roomName) {
 		super();
 		this.user = user;
 		this.roomName = roomName;
@@ -28,17 +28,17 @@ public class PlayingRoom implements Serializable {
 	
 	// 게임 시작 시 실행
 	public void turnUserSet() {
-		for (User user1 : userList) {
+		for (User2 user1 : userList) {
 			turnUserList.add(user1.getNickname());
 		}
 		currUserNum = userList.size();
 	}
 
-	public User getTurnUser() {
+	public User2 getTurnUser() {
 		return turnUser;
 	}
 
-	public void setTurnUser(User turnUser) {
+	public void setTurnUser(User2 turnUser) {
 		this.turnUser = turnUser;
 	}
 
@@ -59,11 +59,11 @@ public class PlayingRoom implements Serializable {
 		this.currUserNum = currUserNum;
 	}
 
-	public User getUser() {
+	public User2 getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(User2 user) {
 		this.user = user;
 	}
 
@@ -75,11 +75,11 @@ public class PlayingRoom implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public ArrayList<User> getUserList() {
+	public ArrayList<User2> getUserList() {
 		return userList;
 	}
 
-	public void setUserList(ArrayList<User> userList) {
+	public void setUserList(ArrayList<User2> userList) {
 		this.userList = userList;
 	}
 
