@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.*;
 
+import com.main.MainApp;
 import com.vo.Room;
 import com.vo.RoomStatus;
 import com.vo.Status;
@@ -19,11 +20,9 @@ public class ClientListener implements Runnable {
 	private int serverPORT;
 	private String nickname;
 	private Socket socket;
-
 	private User user;
-
 	private ArrayList<User> userList;
-	private ArrayList<Room> roomList;
+//	private ArrayList<Room> roomList;
 	private boolean flag;
 	private Thread listener;
 	private ObjectInputStream ois;
