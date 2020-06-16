@@ -126,6 +126,10 @@ public class WaitingRoomController {
 		 UserLabel1.setText(user.getNickname());
 	}
 
+	public void changeLabel2() {
+		 UserLabel2.setText(user.getNickname());
+	}
+	
 	public User getUser() {
 		return user;
 	}

@@ -61,8 +61,8 @@ public class LoginController {
 			ClientListener cli = new ClientListener("192.168.3.76", 5555, nickname);
 			cli.createConnect();
 
-			 Room room = new Room("들어오세요", 8);
-			 mainApp.initWaitingRoom(user, room);
+			Room room = new Room("들어오세요", 8);
+			mainApp.initWaitingRoom(user, room);
 		}
 	}
 
