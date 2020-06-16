@@ -66,8 +66,6 @@ public class ClientListener implements Runnable {
 			ois = new ObjectInputStream(socket.getInputStream()); // receive data from server socket
 
 			clientIP = socket.getLocalAddress().toString();
-			System.out.println("ip를 가져옵니다" + clientIP);
-			System.out.println(nickname);
 			User client = new User(clientIP, nickname, Status.CONNECTED);
 			oos.writeObject(client);
 			System.out.println("is connected the server socket");
@@ -87,6 +85,11 @@ public class ClientListener implements Runnable {
 		while (!flag) {
 			try {
 				user = (User) ois.readObject();
+				System.out.println("붙은 사용자 리스트");
+				for (int i = 0; i < user.getUserList().size(); i++) {
+					System.out.println(user.getUserList().get(i).getNickname());
+				}
+
 				System.out.println(user.getIp());
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
