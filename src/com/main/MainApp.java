@@ -51,25 +51,14 @@ public class MainApp extends Application {
 	
 	// 방 데이터 추가는 생성자에서!!
 	public MainApp() {
-//		roomData.add(new Room(1, "제목01"));
-//		roomData.add(new Room(2, "제목02"));
-//		roomData.add(new Room(3, "제목03"));
-//		roomData.add(new Room(4, "제목04"));
-//		userListOfRoomList.add(new User2("사용자01"));
-//		userListOfRoomList.add(new User2("사용자02"));
-//		userListOfRoomList.add(new User2("사용자03"));
+
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		initLogin();
-//		initRoomList();
-//		initWaitingRoom(user, room);
-//		initAnswer();
-//		initDraw();
-//		initSetting();
-//		initScore();
+		//initLogin();
+		initDraw();
 	}
 
 	public void initLogin() {
