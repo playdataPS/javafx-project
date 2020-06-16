@@ -95,7 +95,7 @@ public class WaitingRoomController {
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		CurrUserCount.setText(String.valueOf(mainApp.getUserListOfRoomList().size()));
+//		CurrUserCount.setText(String.valueOf(mainApp.getUserListOfRoomList().size()));
 		MaxUserCount.setText("8");
 		// UserLabel8.getStylesheets().add("LabelStyle.css");
 		// UserLabel8.getStyleClass().add(".-rectPrepared");
@@ -169,6 +169,6 @@ public class WaitingRoomController {
 
 	@FXML
 	private void exitApp() {
-		waitingRoomStage.hide();
+		System.exit(0);
 	}
 }
