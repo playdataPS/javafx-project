@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.client.ClientListener;
 import com.view.AnswerController;
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private static MainApp instance;
-	
+	 private static Parent gameRoot;
 	
 	private static Stage primaryStage;
 	private static Scene loginScene, lobbyScene, gameScene;
@@ -59,11 +60,14 @@ public class MainApp extends Application {
 //		initDraw();
 //		initScore();
 		
-		 Parent loginRoot = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+	   Parent loginRoot = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 	        loginScene = new Scene(loginRoot);
 	        
 		Parent lobbyRoot = FXMLLoader.load(getClass().getResource("../view/WaitingRoom.fxml"));
         lobbyScene = new Scene(lobbyRoot);
+        
+//        gameRoot = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Draw.fxml"));
+//        gameScene = new Scene(gameRoot);
         
         window.setScene(loginScene);
         window.setTitle("Login");
@@ -105,6 +109,10 @@ public class MainApp extends Application {
         
     }
 	
+    public static void switchToGame(List<User> userList) {
+    	
+    }
+    
 	public void initLogin() {
 		try {
 			FXMLLoader loader = new FXMLLoader();

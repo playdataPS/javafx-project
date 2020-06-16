@@ -148,13 +148,13 @@ public class ClientListener implements Runnable {
 			case SEEK:
 				System.out.println("game playing GameController > role - seek ");
 				break;
-			case PLAYING:
+			case PLAYING: //game view update
 				System.out.println("game playing GameController");
-				
-				
+							
 				break;
 			case READY:
 				System.out.println("game WaitingRoomController > status - READY ");
+				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
 				break;
 
 			case WAITING:
@@ -170,7 +170,7 @@ public class ClientListener implements Runnable {
 
 			}
 
-		} // while enduus
+		} // while end
 
 		try {
 			ois.close();
@@ -180,10 +180,7 @@ public class ClientListener implements Runnable {
 	}
 	// update UI according to the message from server
 	@Override
-	public void run() {
-		
-
-	}
+	public void run() {}
 
 	public void endConnect() {
 		try {
@@ -207,30 +204,6 @@ public class ClientListener implements Runnable {
 		}
 	}
 
-//	public void createRoom() {
-//		try {
-//			System.out.println("createRoom");
-//			
-//			Room room = new Room(user, "게임방!!!", 8, RoomStatus.WAITING);
-//			//User data = new User();
-//			user.setGameRoom(room);
-//			user.setNickname("ibi");
-//			user.setStatus(Status.WAITING);
-//			
-//			user.getOos().writeObject(user);
-//			//oos.writeObject(data);
-//			
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
-//	public static void main(String[] args) {
-//		User userData = new User("127.0.0.1", "eunhye");
-//		
-//		new ClientListener("127.0.0.1", 5555, userData).createConnect();
-//	}
 
 }
