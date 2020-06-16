@@ -162,7 +162,7 @@
                         <Font name="D2Coding" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="submitButton" layoutX="613.0" layoutY="11.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="101.0" text="입력" textFill="#424242">
+                  <Button fx:id="submitButton" layoutX="613.0" layoutY="11.0" mnemonicParsing="false" onAction="#submitAppend" prefHeight="36.0" prefWidth="101.0" text="입력" textFill="#424242">
                      <font>
                         <Font name="D2Coding" size="14.0" />
                      </font>
