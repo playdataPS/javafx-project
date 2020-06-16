@@ -1,24 +1,36 @@
 package com.view;
 
+import java.util.Collections;
+import java.util.List;
+
+import com.client.ClientListener;
 import com.main.MainApp;
 import com.vo.Room;
+import com.vo.Status;
 import com.vo.User;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class WaitingRoomController {
+	
+	private static WaitingRoomController instance;
 	@FXML
 	private Label RoomNameLabel;
 	@FXML
 	private Label CurrUserCount;
 	@FXML
 	private Label MaxUserCount;
+	
+	
+	
 	@FXML
 	private Label UserLabel1;
 	@FXML
@@ -35,6 +47,10 @@ public class WaitingRoomController {
 	private Label UserLabel7;
 	@FXML
 	private Label UserLabel8;
+	
+	@FXML
+	private Label[] UserLabels = {UserLabel1,UserLabel2,UserLabel3,UserLabel4,UserLabel5,UserLabel6,UserLabel7,UserLabel8};
+	
 	@FXML
 	private TextArea chatArea;
 	@FXML
@@ -61,6 +77,9 @@ public class WaitingRoomController {
 	private Pane user7;
 	@FXML
 	private Pane user8;
+	
+	@FXML
+	private GridPane grid;
 
 	private Stage waitingRoomStage;
 
@@ -71,11 +90,16 @@ public class WaitingRoomController {
 	private User user;
 
 	private String state = "R";
+	@FXML
+    private List<Label> labelList ;
 
 	public WaitingRoomController() {
-		super();
+		instance = this;
 	}
 
+	public static WaitingRoomController getInstance() {
+        return instance;
+    }
 	@FXML
 	private void initialize() {
 //		System.out.println("initialize  " + getUser().getNickname());
@@ -122,6 +146,19 @@ public class WaitingRoomController {
 		CurrUserCount.setText(String.valueOf(x));
 	}
 
+	public void changeLabel(User user) {
+		Platform.runLater(() -> {
+			RoomNameLabel.setText(user.getNickname());
+			CurrUserCount.setText(String.valueOf(user.getUserList().size()));
+			for(int i=0; i<user.getUserList().size(); i++) {
+				String nickname = user.getUserList().get(i).getNickname();
+				System.out.println("nickname  :  "+nickname);
+				labelList.get(i).setText(nickname);
+			}//for end 
+			
+		});
+		
+	}
 	
 	public void changeLabel1() {
 		UserLabel1.setText(user.getNickname());
@@ -150,9 +187,18 @@ public class WaitingRoomController {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-
-	public void ChangeReadyColor() {
+	
+	public void refreshConstraints() {
+		
+	}
+	
+	@FXML
+	public void ChangeReadyColor() {//ready 버튼 클릭
 		// 사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
+		User userData = new User();
+		userData.setStatus(Status.READY);
+		userData.setNickname(LoginController.getInstance().getPlayerName());
+		ClientListener.getInstance().sendData(userData);
 		if (state == "R") {
 			readyStart.setStyle("-fx-background-color :  #42A5F5;");
 			user1.setStyle("-fx-background-color :  #EF5350;");

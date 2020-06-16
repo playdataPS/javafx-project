@@ -57,7 +57,9 @@ public class User implements Serializable {
 		this.nickname = nickname;
 	}
 	
-	
+	public User(Status status) {
+		this.status = status;
+	}
 
 	public User(int no,String ip, String nickname, int score, Date regdate,Status status ,ObjectOutputStream oos) {
 		this.no = no;
