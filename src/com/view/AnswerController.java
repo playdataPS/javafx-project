@@ -76,7 +76,7 @@ public class AnswerController implements Initializable{
 		inputchat.setText("");
 	}
 	public void clickanswer() {
-		chat.appendText(inputchat.getText() + "\n");
+		chat.appendText(inputanswer.getText() + "\n");
 		inputanswer.setText("");
 	}
 	
