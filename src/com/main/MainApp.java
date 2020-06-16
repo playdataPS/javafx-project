@@ -93,7 +93,6 @@ public class MainApp extends Application {
 
 	public void initWaitingRoom(User user, Room room) {
 		try {
-			System.out.println("initWaitingRoom   " + user.getNickname());
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
@@ -110,7 +109,6 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setWaitingRoomStage(primaryStage);
 			controller.setRoom(room);
-			System.out.println("initWaitingRoom2   " +user.getNickname());
 			controller.setUser(user);
 			controller.changeRoomName();
 			controller.changeLabel1();
