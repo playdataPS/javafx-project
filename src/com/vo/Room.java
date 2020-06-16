@@ -6,67 +6,57 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Room {
-	private final IntegerProperty no;
-	private final StringProperty name;
-	private final StringProperty userCnt;
-	private final StringProperty enterButton;
-	private int[] userCntArr;
+	private int no; // room number
+	private String name;// room name
+	private int userCnt; // user count
+	private String enterButton; // ?
+	private int[] userCntArr; // ?
+
 	public Room(String roomName, int maxNum) {
-		this.no = new SimpleIntegerProperty(0);
-		this.name = new SimpleStringProperty(roomName);
-		this.userCnt = new SimpleStringProperty("0/ " + String.valueOf(maxNum));
-		this.enterButton = new SimpleStringProperty("들어가기");
+		this.enterButton = "";
+		this.no = 1;
+		this.name = roomName;
+		this.userCnt = maxNum;
 	}
-	public Room(String roomName, int currNum, int maxNum) {
-		this.no = new SimpleIntegerProperty(0);
-		this.name = new SimpleStringProperty(roomName);
-		this.userCnt = new SimpleStringProperty(String.valueOf(currNum)+ "/ " + String.valueOf(maxNum));
-		this.enterButton = new SimpleStringProperty("들어가기");
-	}
-	public Room(int no, String name) {
-		this.no = new SimpleIntegerProperty(no);
-		this.name = new SimpleStringProperty(name);
-		
-		this.userCnt = new SimpleStringProperty("0/ 0");
-		this.enterButton = new SimpleStringProperty("들어가기");
-	}
-	
+
 	public Room() {
-		this((Integer) null, null);
 	}
-	public IntegerProperty getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no.set(no);
-	}
-	public StringProperty getName() {
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 		return name;
 	}
-	public String getNameString() {
-		return name.get();
-	}
+
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
-		this.name.set(name);
+		this.name = name;
 	}
-	public StringProperty getUserCnt() {
+
+	/**
+	 * @return the userCnt
+	 */
+	public int getUserCnt() {
 		return userCnt;
 	}
+
+	/**
+	 * @param userCnt the userCnt to set
+	 */
+	public void setUserCnt(int userCnt) {
+		this.userCnt = userCnt;
+	}
+
 	public int[] getUserCntArr(StringProperty userCnt) {
 		userCntArr = new int[2];
 		int currNum = Integer.parseInt(userCnt.get().substring(0, 1));
-		int maxNum = Integer.parseInt(userCnt.get().substring(userCnt.get().length()-1, userCnt.get().length()));
+		int maxNum = Integer.parseInt(userCnt.get().substring(userCnt.get().length() - 1, userCnt.get().length()));
 		userCntArr[0] = currNum;
 		userCntArr[1] = maxNum;
 		return userCntArr;
 	}
-	public void setUserCnt(String userCnt) {
-		this.userCnt.set(userCnt);
-	}
-	public StringProperty getEnterButton() {
-		return enterButton;
-	}
-	public void setEnterButton(String enterButton) {
-		this.enterButton.set(enterButton);
-	}
+
 }

@@ -110,26 +110,31 @@ public class WaitingRoomController {
 	}
 
 	public void changeRoomName() {
-		RoomNameLabel.setText(room.getName().get());
+		RoomNameLabel.setText(room.getName());
 	}
 
-	public void changeMaxNum() {
-		MaxUserCount.setText(room.getUserCnt().get().substring(room.getUserCnt().get().length() - 1,
-				room.getUserCnt().get().length()));
-	}
+//	public void changeMaxNum() {
+//		MaxUserCount.setText(room.getUserCnt().substring(room.getUserCnt() - 1,
+//				room.getUserCnt()));
+//	}
 
 	public void changeCurrNum(int x) {
 		CurrUserCount.setText(String.valueOf(x));
 	}
 
+	
 	public void changeLabel1() {
-		 UserLabel1.setText(user.getNickname());
+		UserLabel1.setText(user.getNickname());
+	}
+	
+	public void changeLabel1(String nickname) {
+		UserLabel1.setText(nickname);
 	}
 
 	public void changeLabel2() {
-		 UserLabel2.setText(user.getNickname());
+		UserLabel2.setText(user.getNickname());
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -175,4 +180,5 @@ public class WaitingRoomController {
 	private void exitApp() {
 		System.exit(0);
 	}
+
 }
