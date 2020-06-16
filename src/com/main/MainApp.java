@@ -27,28 +27,35 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-	
+
 	private ObservableList<Room> roomData = FXCollections.observableArrayList();
+
 	public ObservableList<Room> getRoomData() {
 		return roomData;
 	}
+
 	private ObservableList<User> userListOfRoomList = FXCollections.observableArrayList();
+
 	public ObservableList<User> getUserListOfRoomList() {
 		return userListOfRoomList;
 	}
+
 	private ObservableList<User> userListOfWaitingRoom = FXCollections.observableArrayList();
+
 	public ObservableList<User> getUserListOfWaitingRoom() {
 		return userListOfWaitingRoom;
 	}
+
 	private ObservableList<GameUser> playerlist = FXCollections.observableArrayList();
+
 	public ObservableList<GameUser> getGameUsers() {
 		return playerlist;
 	}
-	
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-	
+
 	// 방 데이터 추가는 생성자에서!!
 	public MainApp() {
 
@@ -66,127 +73,130 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/Login.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			
+
 			primaryStage.setTitle("Login");
-			
+
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			
+
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setLoginStage(primaryStage);
-			
-			primaryStage.show(); 
+
+			primaryStage.show();
 			primaryStage.setResizable(false);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initWaitingRoom(User user, Room room) {
 		try {
+			System.out.println("initWaitingRoom   " + user.getNickname());
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			
+
 			Stage waitingRoomStage = new Stage();
 			waitingRoomStage.setTitle("Room List");
 			waitingRoomStage.initModality(Modality.WINDOW_MODAL);
 			waitingRoomStage.initOwner(primaryStage);
-	        
+
 			Scene scene = new Scene(root);
 			waitingRoomStage.setScene(scene);
-			
+
 			WaitingRoomController controller = loader.getController();
-	        controller.setMainApp(this);
-	        controller.setWaitingRoomStage(primaryStage);
-	        controller.setRoom(room);
-	        controller.setUser(user);
-	        controller.changeRoomName();
-	        controller.changeLabel1();
-	        controller.changeMaxNum();
-	        
-	        getRoomData().add(room);
-	        getUserListOfWaitingRoom().add(user);
-			
-	        primaryStage.hide();
-	        waitingRoomStage.show(); 
-	        waitingRoomStage.setResizable(false);
+			controller.setMainApp(this);
+			controller.setWaitingRoomStage(primaryStage);
+			controller.setRoom(room);
+			System.out.println("initWaitingRoom2   " +user.getNickname());
+			controller.setUser(user);
+			controller.changeRoomName();
+			controller.changeLabel1();
+			controller.changeMaxNum();
+
+			getRoomData().add(room);
+			getUserListOfWaitingRoom().add(user);
+
+			primaryStage.hide();
+			waitingRoomStage.show();
+			waitingRoomStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initAnswer() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/Answer.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			
+
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			
+
 			AnswerController controller = loader.getController();
 			controller.setMainApp(this);
-			
-			primaryStage.show(); 
+
+			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initDraw() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/Draw.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			
+
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			
+
 			DrawController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setDrawStage(primaryStage);
-			
-			primaryStage.show(); 
+
+			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initRoomList(User user) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/RoomList.fxml"));
 			BorderPane root = (BorderPane) loader.load();
-	        Stage roomListStage = new Stage();
-	        roomListStage.setTitle("Room List");
-	        roomListStage.initModality(Modality.WINDOW_MODAL);
-	        roomListStage.initOwner(primaryStage);
-	        Scene scene = new Scene(root);
-	        roomListStage.setScene(scene);
+			Stage roomListStage = new Stage();
+			roomListStage.setTitle("Room List");
+			roomListStage.initModality(Modality.WINDOW_MODAL);
+			roomListStage.initOwner(primaryStage);
+			Scene scene = new Scene(root);
+			roomListStage.setScene(scene);
 
-	        RoomListController controller = loader.getController();
-	        controller.setRoomListStage(roomListStage);
-	      //  controller.setUser(user);
-	        //Client cli = new Client(user, Status.CONNECTED);
+			RoomListController controller = loader.getController();
+			controller.setRoomListStage(roomListStage);
+			// controller.setUser(user);
+			// Client cli = new Client(user, Status.CONNECTED);
 //	        ClientListener listener = 
 //	        getUserListOfRoomList().add(user);
-	        System.out.println("--------client data--------");
-	        System.out.println(user.getNickname());
-	        System.out.println(user.getIp());
-	        System.out.println("--------client data--------");
 //	        User userData = new User("127.0.0.1", "eunhye");
 //			
 //			new ClientListener("127.0.0.1", 5555, userData).createConnect();
 
-	        controller.setMainApp(this);
-	        primaryStage.hide();
-	        roomListStage.showAndWait();
-	        roomListStage.setResizable(false);	
+			controller.setMainApp(this);
+			primaryStage.hide();
+			roomListStage.showAndWait();
+			roomListStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initSetting(User user) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -197,34 +207,35 @@ public class MainApp extends Application {
 			settingStage.setTitle("Setting");
 			settingStage.initModality(Modality.WINDOW_MODAL);
 			settingStage.initOwner(primaryStage);
-	        Scene scene = new Scene(root);
-	        settingStage.setScene(scene);
+			Scene scene = new Scene(root);
+			settingStage.setScene(scene);
 
-	        SettingController controller = loader.getController();
-	        controller.setSettingStage(settingStage);
-	       // controller.setUser(user);
+			SettingController controller = loader.getController();
+			controller.setSettingStage(settingStage);
+			// controller.setUser(user);
 
-	        controller.setMainApp(this);
-	        settingStage.showAndWait();
-			
-	        settingStage.setResizable(false);
+			controller.setMainApp(this);
+			settingStage.showAndWait();
+
+			settingStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void initScore() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/Score.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
-			
+
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			
-			//MainAppController controller = loader.getController();
-			//controller.setMainApp(this);
-			
-			primaryStage.show(); 
+
+			// MainAppController controller = loader.getController();
+			// controller.setMainApp(this);
+
+			primaryStage.show();
 			primaryStage.setResizable(false);
 		} catch (Exception e) {
 			e.printStackTrace();

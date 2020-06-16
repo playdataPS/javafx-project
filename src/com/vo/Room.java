@@ -30,6 +30,7 @@ public class Room {
 		this.userCnt = new SimpleStringProperty("0/ 0");
 		this.enterButton = new SimpleStringProperty("들어가기");
 	}
+	
 	public Room() {
 		this((Integer) null, null);
 	}
