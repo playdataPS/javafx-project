@@ -21,18 +21,19 @@
 		<Button fx:id="send" layoutX="918.0" layoutY="701.0" mnemonicParsing="false" onAction="#submitBtn" prefHeight="40.0" prefWidth="62.0" text="전송" />
 		<TextField fx:id="inputchat" layoutX="192.0" layoutY="709.0" prefHeight="30.0" prefWidth="725.0" />
 		<TextArea fx:id="chat" layoutX="191.0" layoutY="511.0" prefHeight="190.0" prefWidth="788.0" />
-      	<Label fx:id="word_num2" alignment="CENTER" layoutX="505.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
-      	<Label fx:id="word_num3" alignment="CENTER" layoutX="560.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
-      	<Label fx:id="word_num4" alignment="CENTER" layoutX="615.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
+
+      <Label fx:id="word_num2" alignment="CENTER" layoutX="505.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
+      <Label fx:id="word_num3" alignment="CENTER" layoutX="560.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
+      <Label fx:id="word_num4" alignment="CENTER" layoutX="615.0" layoutY="30.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: lightgray;" />
 		<Label fx:id="user1" layoutX="1039.0" layoutY="165.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user2" layoutX="1039.0" layoutY="183.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user3" layoutX="1039.0" layoutY="201.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user4" layoutX="1039.0" layoutY="219.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user5" layoutX="1039.0" layoutY="237.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user6" layoutX="1039.0" layoutY="255.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user7" layoutX="1039.0" layoutY="273.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user8" layoutX="1039.0" layoutY="291.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
-        <Label fx:id="user11" alignment="CENTER" contentDisplay="CENTER" layoutX="1039.0" layoutY="147.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" text="접속자" />
+            <Label fx:id="user2" layoutX="1039.0" layoutY="183.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user3" layoutX="1039.0" layoutY="201.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user4" layoutX="1039.0" layoutY="219.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user5" layoutX="1039.0" layoutY="237.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user6" layoutX="1039.0" layoutY="255.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user7" layoutX="1039.0" layoutY="273.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user8" layoutX="1039.0" layoutY="291.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
+            <Label fx:id="user11" alignment="CENTER" contentDisplay="CENTER" layoutX="1039.0" layoutY="147.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" text="접속자" />
 		<Canvas fx:id="canvas" height="368.0" layoutX="191.0" layoutY="126.0" onMouseDragged="#onMouseDraggedListener" onMousePressed="#onMousePressedListener" width="788.0" />
       <ColorPicker fx:id="cPick" layoutX="999.0" layoutY="465.0" />
       <Slider fx:id="slider" layoutX="998.0" layoutY="437.0" />

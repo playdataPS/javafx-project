@@ -13,9 +13,15 @@
    <children>
       <AnchorPane prefHeight="800.0" prefWidth="1200.0">
       	<children>
+      	<!--  
+      		<Label fx:id="word_num1" alignment="CENTER" contentDisplay="CENTER" layoutX="474.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: gray;" text="정" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
+       	-->	
       		<Label fx:id="word_num2" alignment="CENTER" contentDisplay="CENTER" layoutX="526.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: gray;" text="답" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
       		<Label fx:id="word_num3" alignment="CENTER" contentDisplay="CENTER" layoutX="577.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: gray;" text="창" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
       		<Label fx:id="word_num4" alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: gray;" text="이" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
+      	<!-- 	
+      		<Label fx:id="word_num5" alignment="CENTER" contentDisplay="CENTER" layoutX="671.0" layoutY="14.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-color: gray;" text="야" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
+      	-->	
       		<ProgressBar fx:id="bar" layoutX="260.0" layoutY="89.0" prefWidth="710.0" progress="0.63" />
       		<Region layoutX="191.0" layoutY="126.0" prefHeight="369.0" prefWidth="781.0" style="-fx-border-color: lightgray;" />
       		<Canvas height="368.0" layoutX="191.0" layoutY="126.0" width="780.0" />
