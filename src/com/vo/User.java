@@ -1,12 +1,10 @@
 package com.vo;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Queue;
 
 
 public class User implements Serializable {
@@ -27,49 +25,14 @@ public class User implements Serializable {
 	private MessageType type;
 	private Room gameRoom;
 	private List<User> userList;
-	private Point[] pointer;
-	
-	class Point{
-		double oldX, oldY;
-		double lastX,lastY;
-		public Point(double oldX, double oldY ,double lastX, double lastY) {
-			this.oldX = oldX;
-			this.oldY = oldY;
-			this.lastX = lastX;
-			this.lastY = lastY;
-		}
-		
-		public void setLastX(double lastX) {
-			this.lastX = lastX;
-		}
-		public void setLastY(double lastY) {
-			this.lastY = lastY;
-		}
-		public void setOldX(double oldX) {
-			this.oldX = oldX;
-		}
-		public void setOldY(double oldY) {
-			this.oldY = oldY;
-		}
-		
-		public double getLastX() {
-			return lastX;
-		}
-		public double getLastY() {
-			return lastY;
-		}
-		public double getOldX() {
-			return oldX;
-		}
-		public double getOldY() {
-			return oldY;
-		}
-	}
-	
+	private Game gameData;
+	private Queue<Game> gameQue;
+	private GameStatus gameStatus;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public User(String ip, String nickname, Status status, ObjectOutputStream oos) {
 		this.ip = ip;
@@ -110,16 +73,48 @@ public class User implements Serializable {
 		this(no, ip, nickname, score, regdate, status, null);
 	}
 	
-	public Point[] getPointer() {
-		return pointer;
-	}
 	
-	public void setPointer(Point[] pointer) {
-		this.pointer = pointer;
-	}
 	
+	public int getRoomNo() {
+		return roomNo;
+	}
 
-	
+
+	public void setRoomNo(int roomNo) {
+		this.roomNo = roomNo;
+	}
+
+
+	public Game getGameData() {
+		return gameData;
+	}
+
+
+	public void setGameData(Game gameData) {
+		this.gameData = gameData;
+	}
+
+
+	public Queue<Game> getGameQue() {
+		return gameQue;
+	}
+
+
+	public void setGameQue(Queue<Game> gameQue) {
+		this.gameQue = gameQue;
+	}
+
+
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
+
+
+	public void setGameStatus(GameStatus gameStatus) {
+		this.gameStatus = gameStatus;
+	}
+
+
 	public List<User> getUserList() {
 		return userList;
 	}

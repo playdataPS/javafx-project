@@ -56,9 +56,9 @@ public class LoginController {
 		} else {
 			User user = new User();
 			user.setNickname(nickname);
-//			ClientListener cli = new ClientListener("127.0.0.1", 5555, nickname);
+			ClientListener cli = new ClientListener("127.0.0.1", 5555, nickname, mainApp);
 //			ClientListener cli = new ClientListener("192.168.0.249", 5555, nickname);
-			ClientListener cli = new ClientListener("192.168.3.76", 5555, nickname, mainApp);
+//			ClientListener cli = new ClientListener("192.168.3.76", 5555, nickname, mainApp);
 			cli.createConnect();
 
 //			Room room = new Room("들어오세요", 8);
