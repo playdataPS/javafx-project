@@ -1,5 +1,7 @@
 package com.main;
 
+import java.io.IOException;
+
 import com.client.ClientListener;
 import com.view.AnswerController;
 import com.view.DrawController;
@@ -16,60 +18,93 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-	private Stage primaryStage;
-
-	private ObservableList<Room> roomData = FXCollections.observableArrayList();
-
-	public ObservableList<Room> getRoomData() {
-		return roomData;
-	}
-
-	private ObservableList<User> userListOfRoomList = FXCollections.observableArrayList();
-
-	public ObservableList<User> getUserListOfRoomList() {
-		return userListOfRoomList;
-	}
-
-	private ObservableList<User> userListOfWaitingRoom = FXCollections.observableArrayList();
-
-	public ObservableList<User> getUserListOfWaitingRoom() {
-		return userListOfWaitingRoom;
-	}
-
-	private ObservableList<GameUser> playerlist = FXCollections.observableArrayList();
-
-	public ObservableList<GameUser> getGameUsers() {
-		return playerlist;
-	}
+	private static MainApp instance;
+	
+	
+	private static Stage primaryStage;
+	private static Scene loginScene, lobbyScene, gameScene;
+	 public static Stage window;
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
+	public static MainApp getInstance() {
+		return instance;
+	}
 
 	// 방 데이터 추가는 생성자에서!!
 	public MainApp() {
-
+		
+		instance = this;
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		initLogin();
+	public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+	//	initLogin();
 //		initAnswer();
 //		initDraw();
 //		initScore();
-	}
+		
+		 Parent loginRoot = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+	        loginScene = new Scene(loginRoot);
+	        
+		Parent lobbyRoot = FXMLLoader.load(getClass().getResource("../view/WaitingRoom.fxml"));
+        lobbyScene = new Scene(lobbyRoot);
+        
+        window.setScene(loginScene);
+        window.setTitle("Login");
+        window.show();
+        
+        window.setOnCloseRequest(e -> {
+        	System.exit(0);
+        });
+//        List<String> players = new ArrayList<>();
+//        players.add("player1");
+//        players.add("player2");
+//        switchToGame(players);
 
+        // start client listener
+        ClientListener clientListener = new ClientListener();
+        Thread x = new Thread(clientListener);
+        x.start();
+		
+	}
+	 /* move the window to the center of the screen */
+    public static void moveToCenter() {
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        window.setX((primScreenBounds.getWidth() - window.getWidth()) / 2);
+        window.setY((primScreenBounds.getHeight() - window.getHeight()) / 2);
+    }
+
+    /* swith to the lobby scene */
+    public static void switchToLobby() {
+        // set transparent before relocate, for visually comfortability
+        window.setOpacity(0.0);
+    	
+        // set title and scene
+        window.setTitle("Lobby: " + LoginController.getInstance().getPlayerName());
+        window.setScene(lobbyScene);
+        // relocate window and show
+      // moveToCenter();
+        moveToCenter();
+        window.setOpacity(1.0);
+        
+    }
+	
 	public void initLogin() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -82,79 +117,48 @@ public class MainApp extends Application {
 			primaryStage.setScene(scene);
 
 			LoginController controller = loader.getController();
-			controller.setMainApp(this);
+//			controller.setMainApp(this);
 			controller.setLoginStage(primaryStage);
 //			controller.Update();// 사용자 추가될때마다 업데이트 되어야함
 
 			primaryStage.show();
 			primaryStage.setResizable(false);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void initWaitingRoom(User user, Room room) {
-		
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				int i = 0;
-				try {
-					
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
-					AnchorPane root = (AnchorPane) loader.load();
+	public void initWaitingRoom(Room room) {
 
-					Stage waitingRoomStage = new Stage();
-					waitingRoomStage.setTitle("Waiting Room");
-					waitingRoomStage.initModality(Modality.WINDOW_MODAL);
-					waitingRoomStage.initOwner(primaryStage);
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
+			AnchorPane root;
+			root = (AnchorPane) loader.load();
+			Stage waitingRoomStage = new Stage();
+			waitingRoomStage.setTitle("Waiting Room");
+			waitingRoomStage.initModality(Modality.WINDOW_MODAL);
+			waitingRoomStage.initOwner(primaryStage);
 
-					Scene scene = new Scene(root);
-					waitingRoomStage.setScene(scene);
-					
-					
-					
-					
+			Scene scene = new Scene(root);
+			waitingRoomStage.setScene(scene);
 
-					WaitingRoomController controller = loader.getController();
-					controller.setUser(user);
-					
-					controller.setMainApp(new MainApp());
-					controller.setWaitingRoomStage(primaryStage);
-					controller.setRoom(room);
-					controller.setUser(user);
-					controller.changeRoomName();
-//					for(User u : user.getUserList()) {
-//						controller.changeLabel1(u.getNickname());
-//					}
-					controller.changeLabel1();
-//					controller.changeMaxNum();
 
-					getRoomData().add(room);
-					getUserListOfWaitingRoom().add(user);
 
-					primaryStage.hide();
-					waitingRoomStage.show();
-					waitingRoomStage.setResizable(false);
-					i++;
-					if(i==1) return;
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-		
+			primaryStage.hide();
+			waitingRoomStage.show();
+			waitingRoomStage.setResizable(false);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public void WatingRommUpdate() {
-		
-		System.out.println("update 돼는거 호출해요");
+
+		System.out.println("update 되는거 호출해요");
 	}
 
 	public void initAnswer() {
