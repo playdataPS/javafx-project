@@ -10,6 +10,7 @@ import com.vo.Status;
 import com.vo.User;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -92,6 +93,8 @@ public class WaitingRoomController {
 	private String state = "R";
 	@FXML
     private List<Label> labelList ;
+	@FXML
+    private List<Pane> userList ;
 
 	public WaitingRoomController() {
 		instance = this;
@@ -148,7 +151,7 @@ public class WaitingRoomController {
 
 	public void changeLabel(User user) {
 		Platform.runLater(() -> {
-			RoomNameLabel.setText(user.getNickname());
+//			RoomNameLabel.setText(user.getNickname());
 			CurrUserCount.setText(String.valueOf(user.getUserList().size()));
 			for(int i=0; i<user.getUserList().size(); i++) {
 				String nickname = user.getUserList().get(i).getNickname();
@@ -192,22 +195,40 @@ public class WaitingRoomController {
 		
 	}
 	
-	@FXML
-	public void ChangeReadyColor() {//ready 버튼 클릭
+	
+	public void ChangeReadyColor(List<User> users) {//ready 버튼 클릭
 		// 사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
+		Platform.runLater(()->{
+			int idx = 0;
+			for(User u: users) {
+				
+				if(u.getStatus().equals(Status.READY)) {
+					if (state == "R") {
+						readyStart.setStyle("-fx-background-color :  #42A5F5;");
+						
+						userList.get(idx).setStyle("-fx-background-color :  #EF5350;");
+						state = "B";
+					} else {
+						readyStart.setStyle("-fx-background-color : #EF5350;");
+						userList.get(idx).setStyle("-fx-background-color :  #42A5F5;");
+						state = "R";
+					}
+				}
+				idx++;
+				
+			}
+			
+			
+		});
+		
+	}//end ChangeReadyColor()
+	
+	@FXML
+	private void clickReadyBtn(ActionEvent event) {
 		User userData = new User();
 		userData.setStatus(Status.READY);
 		userData.setNickname(LoginController.getInstance().getPlayerName());
 		ClientListener.getInstance().sendData(userData);
-		if (state == "R") {
-			readyStart.setStyle("-fx-background-color :  #42A5F5;");
-			user1.setStyle("-fx-background-color :  #EF5350;");
-			state = "B";
-		} else {
-			readyStart.setStyle("-fx-background-color : #EF5350;");
-			user1.setStyle("-fx-background-color :  #42A5F5;");
-			state = "R";
-		}
 	}
 
 	@FXML
