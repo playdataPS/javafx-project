@@ -12,6 +12,7 @@ import com.vo.Status;
 import com.vo.User;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -95,48 +96,60 @@ public class MainApp extends Application {
 
 	public void initWaitingRoom(User user, Room room) {
 		
-//		Flam
-		try {
+		Platform.runLater(new Runnable() {
 			
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
-			AnchorPane root = (AnchorPane) loader.load();
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int i = 0;
+				try {
+					
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
+					AnchorPane root = (AnchorPane) loader.load();
 
-			Stage waitingRoomStage = new Stage();
-			waitingRoomStage.setTitle("Waiting Room");
-			waitingRoomStage.initModality(Modality.WINDOW_MODAL);
-			waitingRoomStage.initOwner(primaryStage);
+					Stage waitingRoomStage = new Stage();
+					waitingRoomStage.setTitle("Waiting Room");
+					waitingRoomStage.initModality(Modality.WINDOW_MODAL);
+					waitingRoomStage.initOwner(primaryStage);
 
-			Scene scene = new Scene(root);
-			waitingRoomStage.setScene(scene);
-			
-			
-			
-			
+					Scene scene = new Scene(root);
+					waitingRoomStage.setScene(scene);
+					
+					
+					
+					
 
-			WaitingRoomController controller = loader.getController();
-			controller.setUser(user);
-			
-			controller.setMainApp(this);
-			controller.setWaitingRoomStage(primaryStage);
-			controller.setRoom(room);
-			controller.setUser(user);
-			controller.changeRoomName();
-			for(User u : user.getUserList()) {
-				controller.changeLabel1(u.getNickname());
+					WaitingRoomController controller = loader.getController();
+					controller.setUser(user);
+					
+					controller.setMainApp(new MainApp());
+					controller.setWaitingRoomStage(primaryStage);
+					controller.setRoom(room);
+					controller.setUser(user);
+					controller.changeRoomName();
+//					for(User u : user.getUserList()) {
+//						controller.changeLabel1(u.getNickname());
+//					}
+					controller.changeLabel1();
+//					controller.changeMaxNum();
+
+					getRoomData().add(room);
+					getUserListOfWaitingRoom().add(user);
+
+					primaryStage.hide();
+					waitingRoomStage.show();
+					waitingRoomStage.setResizable(false);
+					i++;
+					if(i==1) return;
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			}
-			//controller.changeLabel1();
-//			controller.changeMaxNum();
-
-			getRoomData().add(room);
-			getUserListOfWaitingRoom().add(user);
-
-			primaryStage.hide();
-			waitingRoomStage.show();
-			waitingRoomStage.setResizable(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		});
+		
 	}
 
 	public void WatingRommUpdate() {
