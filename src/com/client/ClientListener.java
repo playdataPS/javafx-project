@@ -52,6 +52,14 @@ public class ClientListener implements Runnable {
 		this.nickname = nickname;
 	}
 
+	public ClientListener(String serverIP, int serverPORT, String nickname, ObjectOutputStream oos) {
+		super();
+		this.serverIP = serverIP;
+		this.serverPORT = serverPORT;
+		this.nickname = nickname;
+		this.oos = oos;
+	}
+
 	public void createConnect() {
 		try {
 			socket = new Socket(serverIP, serverPORT); // create client's socket
@@ -61,8 +69,8 @@ public class ClientListener implements Runnable {
 			clientIP = socket.getLocalAddress().toString();
 			System.out.println("ip를 가져옵니다" + clientIP);
 			System.out.println(nickname);
-			User client = new User(clientIP, nickname, Status.CONNECTED);
-//			oos.writeObject(client);
+			User client = new User(clientIP, nickname, Status.CONNECTED,oos);
+			oos.writeObject(client);
 			System.out.println("is connected the server socket");
 
 		} catch (IOException e) {
