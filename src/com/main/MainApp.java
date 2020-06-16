@@ -4,7 +4,6 @@ import com.client.ClientListener;
 import com.view.AnswerController;
 import com.view.DrawController;
 import com.view.LoginController;
-import com.view.RoomListController;
 import com.view.SettingController;
 import com.view.WaitingRoomController;
 import com.vo.GameUser;
@@ -64,9 +63,10 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-//		initLogin();
-		initAnswer();
+		initLogin();
+//		initAnswer();
 //		initDraw();
+//		initScore();
 	}
 
 	public void initLogin() {
@@ -83,6 +83,7 @@ public class MainApp extends Application {
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setLoginStage(primaryStage);
+//			controller.Update();// 사용자 추가될때마다 업데이트 되어야함
 
 			primaryStage.show();
 			primaryStage.setResizable(false);
@@ -93,27 +94,39 @@ public class MainApp extends Application {
 	}
 
 	public void initWaitingRoom(User user, Room room) {
+		
+//		Flam
 		try {
+			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/WaitingRoom.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 
 			Stage waitingRoomStage = new Stage();
-			waitingRoomStage.setTitle("Room List");
+			waitingRoomStage.setTitle("Waiting Room");
 			waitingRoomStage.initModality(Modality.WINDOW_MODAL);
 			waitingRoomStage.initOwner(primaryStage);
 
 			Scene scene = new Scene(root);
 			waitingRoomStage.setScene(scene);
+			
+			
+			
+			
 
 			WaitingRoomController controller = loader.getController();
+			controller.setUser(user);
+			
 			controller.setMainApp(this);
 			controller.setWaitingRoomStage(primaryStage);
 			controller.setRoom(room);
 			controller.setUser(user);
 			controller.changeRoomName();
-			controller.changeLabel1();
-			controller.changeMaxNum();
+			for(User u : user.getUserList()) {
+				controller.changeLabel1(u.getNickname());
+			}
+			//controller.changeLabel1();
+//			controller.changeMaxNum();
 
 			getRoomData().add(room);
 			getUserListOfWaitingRoom().add(user);
@@ -124,6 +137,11 @@ public class MainApp extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void WatingRommUpdate() {
+		
+		System.out.println("update 돼는거 호출해요");
 	}
 
 	public void initAnswer() {
@@ -177,8 +195,8 @@ public class MainApp extends Application {
 			Scene scene = new Scene(root);
 			roomListStage.setScene(scene);
 
-			RoomListController controller = loader.getController();
-			controller.setRoomListStage(roomListStage);
+//			RoomListController controller = loader.getController();
+//			controller.setRoomListStage(roomListStage);
 			// controller.setUser(user);
 			// Client cli = new Client(user, Status.CONNECTED);
 //	        ClientListener listener = 
@@ -187,7 +205,7 @@ public class MainApp extends Application {
 //			
 //			new ClientListener("127.0.0.1", 5555, userData).createConnect();
 
-			controller.setMainApp(this);
+//			controller.setMainApp(this);
 			primaryStage.hide();
 			roomListStage.showAndWait();
 			roomListStage.setResizable(false);

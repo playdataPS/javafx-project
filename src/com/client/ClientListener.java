@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.util.*;
 
 import com.main.MainApp;
+import com.view.LoginController;
+import com.view.WaitingRoomController;
 import com.vo.Room;
 import com.vo.RoomStatus;
 import com.vo.Status;
@@ -27,13 +29,19 @@ public class ClientListener implements Runnable {
 	private Thread listener;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-
+	private LoginController login;
 	private static ClientListener instance;
-
+	private static MainApp mainApp;
+	private static Room room;
+	
+	
+	
 	public ClientListener() {
 		instance = this;
 
 	}
+	
+	
 
 	public static ClientListener getInstance() {
 		return instance;
@@ -45,10 +53,14 @@ public class ClientListener implements Runnable {
 		this.user = user;
 	}
 
-	public ClientListener(String serverIP, int serverPORT, String nickname) {
+	public ClientListener(String serverIP, int serverPORT, String nickname, MainApp mainApp) {
 		this.serverIP = serverIP;
 		this.serverPORT = serverPORT;
 		this.nickname = nickname;
+		this.mainApp = mainApp;
+		
+		
+		
 	}
 
 	public ClientListener(String serverIP, int serverPORT, String nickname, ObjectOutputStream oos) {
@@ -85,14 +97,15 @@ public class ClientListener implements Runnable {
 		while (!flag) {
 			try {
 				user = (User) ois.readObject();
-				System.out.println("붙은 사용자 리스트");
-				for (int i = 0; i < user.getUserList().size(); i++) {
-					System.out.println(user.getUserList().get(i).getNickname());
-				}
 
-				System.out.println(user.getIp());
+//				System.out.println("붙은 사용자 리스트");
+//				for (int i = 0; i < user.getUserList().size(); i++) {
+//					System.out.println(user.getUserList().get(i).getNickname());
+//				}
+
+//				login.Update(user);
+
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				try {
 					oos.close();
@@ -139,14 +152,12 @@ public class ClientListener implements Runnable {
 
 			case WAITING:
 				System.out.println("game WaitingRoomController > status - waiting ");
-				user.setOos(oos);
-				user.setStatus(Status.READY);
-				try {
-					user.getOos().writeObject(user);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				Room room = new Room("들어오세요", 8);
+				System.out.println(user.getUserList().get(0).getNickname());
+				mainApp.initWaitingRoom(user, room);
+				
+				
+				
 				break;
 			default:
 				System.out.println("error");
@@ -154,7 +165,7 @@ public class ClientListener implements Runnable {
 
 			}
 
-		} // while end
+		} // while enduus
 
 		try {
 			ois.close();
