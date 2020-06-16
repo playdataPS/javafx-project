@@ -57,8 +57,8 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		//initLogin();
-		initDraw();
+		initLogin();
+//		initDraw();
 	}
 
 	public void initLogin() {
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
 	        RoomListController controller = loader.getController();
 	        controller.setRoomListStage(roomListStage);
-	        controller.setUser(user);
+	      //  controller.setUser(user);
 	        //Client cli = new Client(user, Status.CONNECTED);
 //	        ClientListener listener = 
 //	        getUserListOfRoomList().add(user);
@@ -202,7 +202,7 @@ public class MainApp extends Application {
 
 	        SettingController controller = loader.getController();
 	        controller.setSettingStage(settingStage);
-	        controller.setUser(user);
+	       // controller.setUser(user);
 
 	        controller.setMainApp(this);
 	        settingStage.showAndWait();

@@ -14,7 +14,7 @@ public class Message implements Serializable {
 	private String nickname;
 	private String msg;
 	private MessageType type;
-	private ArrayList<User> userList;
+	private ArrayList<User2> userList;
 	private transient ObjectOutputStream oos;
 	
 	
@@ -41,11 +41,11 @@ public class Message implements Serializable {
 		return oos;
 	}
 	
-	public void setUserList(ArrayList<User> userList) {
+	public void setUserList(ArrayList<User2> userList) {
 		this.userList = userList;
 	}
 	
-	public ArrayList<User> getUserList() {
+	public ArrayList<User2> getUserList() {
 		return userList;
 	}
 

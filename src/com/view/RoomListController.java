@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User;
+import com.vo.User2;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,9 +30,9 @@ public class RoomListController {
 	@FXML
 	private Label noticeLabel;
 	@FXML
-	private TableView<User> userList;
+	private TableView<User2> userList;
 	@FXML
-	private TableColumn<User, String> userName;
+	private TableColumn<User2, String> userName;
 	@FXML
 	private Button galleryButton;
 	@FXML
@@ -44,7 +44,7 @@ public class RoomListController {
 	 
 	private Stage roomListStage;
 	
-	private User user;
+	private User2 user;
 	
 	public RoomListController() {
 		super();
@@ -77,11 +77,11 @@ public class RoomListController {
 		this.roomListStage = roomListStage;
 	}
 
-	public User getUser() {
+	public User2 getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(User2 user) {
 		this.user = user;
 	}
 

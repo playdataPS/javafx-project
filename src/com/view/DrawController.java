@@ -90,6 +90,8 @@ public class DrawController implements Initializable{
         oldX = lastX;
         oldY = lastY;
         System.out.println(String.format("oldX : %f, oldY : %f, lastX : %f, lastY : %f", oldX, oldY, lastX, lastY));
+        
+        System.out.println("color: "+cPick.getValue());
     }
 	
 	@FXML

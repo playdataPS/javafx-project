@@ -58,11 +58,11 @@ public class LoginController {
 			System.out.println(user.getNickname());
 			System.out.println("--------client data--------");
 
-			ClientListener cli = new ClientListener("192.168.3.76", 5555, nickname);
+			ClientListener cli = new ClientListener("127.0.0.1", 5555, nickname);
 			cli.createConnect();
 
-			Room room = new Room("들어오세요", 8);
-			mainApp.initWaitingRoom(user, room);
+			//Room room = new Room("들어오세요", 8);
+			//mainApp.initWaitingRoom(user, room);
 		}
 	}
 }

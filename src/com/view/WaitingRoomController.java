@@ -2,7 +2,7 @@ package com.view;
 
 import com.main.MainApp;
 import com.vo.Room;
-import com.vo.User;
+import com.vo.User2;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -68,7 +68,7 @@ public class WaitingRoomController {
 	
 	private Room room;
 	
-	private User user;
+	private User2 user;
 	
 	private String state = "R";
 
@@ -123,11 +123,11 @@ public class WaitingRoomController {
 		//UserLabel1.setText(user.getNickname().get());
 	}
 	
-	public User getUser() {
+	public User2 getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(User2 user) {
 		this.user = user;
 	}
 
