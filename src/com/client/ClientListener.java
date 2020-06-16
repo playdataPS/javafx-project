@@ -13,76 +13,82 @@ import com.vo.RoomStatus;
 import com.vo.Status;
 import com.vo.User;
 
-public class ClientListener implements Runnable{
+public class ClientListener implements Runnable {
 	private String serverIP;
 	private String clientIP;
 	private int serverPORT;
 	private String nickname;
 	private Socket socket;
-	
+
 	private User user;
-	
+
 	private ArrayList<User> userList;
 	private ArrayList<Room> roomList;
 	private boolean flag;
 	private Thread listener;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-	
-	
+
 	private static ClientListener instance;
 
-	public ClientListener() { 
-		instance = this; 
-		
+	public ClientListener() {
+		instance = this;
+
 	}
 
-	public static ClientListener getInstance() { return instance; }
-	
-	
-	
+	public static ClientListener getInstance() {
+		return instance;
+	}
+
 	public ClientListener(String serverIP, int serverPORT, User user) {
 		this.serverIP = serverIP;
 		this.serverPORT = serverPORT;
 		this.user = user;
 	}
+
 	public ClientListener(String serverIP, int serverPORT, String nickname) {
 		this.serverIP = serverIP;
 		this.serverPORT = serverPORT;
 		this.nickname = nickname;
 	}
-	
-	
-	
+
+	public ClientListener(String serverIP, int serverPORT, String nickname, ObjectOutputStream oos) {
+		super();
+		this.serverIP = serverIP;
+		this.serverPORT = serverPORT;
+		this.nickname = nickname;
+		this.oos = oos;
+	}
+
 	public void createConnect() {
 		try {
-			socket = new Socket(serverIP, serverPORT); //create client's socket
-			oos = new ObjectOutputStream(socket.getOutputStream()); // send data to server socket 
+			socket = new Socket(serverIP, serverPORT); // create client's socket
+			oos = new ObjectOutputStream(socket.getOutputStream()); // send data to server socket
 			ois = new ObjectInputStream(socket.getInputStream()); // receive data from server socket
-			
-			clientIP = user.getIp();
-			nickname = user.getNickname();
-			
-			User client = new User(clientIP, nickname, Status.CONNECTED);
-			
-			
+
+			clientIP = socket.getLocalAddress().toString();
+			System.out.println("ip를 가져옵니다" + clientIP);
+			System.out.println(nickname);
+			User client = new User(clientIP, nickname, Status.CONNECTED,oos);
 			oos.writeObject(client);
 			System.out.println("is connected the server socket");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 //		//thread 
 		listener = new Thread(this);
 		listener.start();
 	}
-	
-	// update UI according to the message from server 
+
+	// update UI according to the message from server
 	@Override
 	public void run() {
-		while(!flag) {
+		while (!flag) {
 			try {
 				user = (User) ois.readObject();
+				System.out.println(user.getIp());
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -93,25 +99,24 @@ public class ClientListener implements Runnable{
 					ioe.printStackTrace();
 				}
 				flag = true;
-			}//try~catch end 
+			} // try~catch end
 			Status status = user.getStatus();
 			String userNickname = user.getNickname();
-			
+
 			switch (status) {
 			case CONNECTED:
-				//현재 접속 유저 
-				//List<User> nowUserList = user.getUserList();
-				
+				// 현재 접속 유저
+				// List<User> nowUserList = user.getUserList();
+
 				System.out.println("WaitingRoomController - login!! ");
-				
-				
+
 				user.setOos(oos);
-				//createRoom();
+				// createRoom();
 				break;
 			case INCORRECT:
 				System.out.println("loginController - try again ");
-				break;	
-				
+				break;
+
 			case DISCONNECTED:
 				userList.remove(user);
 				System.out.println("update userList");
@@ -129,7 +134,7 @@ public class ClientListener implements Runnable{
 			case READY:
 				System.out.println("game WaitingRoomController > status - READY ");
 				break;
-			
+
 			case WAITING:
 				System.out.println("game WaitingRoomController > status - waiting ");
 				user.setOos(oos);
@@ -145,32 +150,30 @@ public class ClientListener implements Runnable{
 				System.out.println("error");
 				break;
 
-			
 			}
-			
-		}//while end 
-		
+
+		} // while end
+
 		try {
 			ois.close();
 		} catch (IOException e) {
-			System.err
-					.println(" ChatClientThread에의 ObjectOutputStream을 Close하는 중에 IOException이 발생하였습니다.");
-		}// catch
-		
+			System.err.println(" ChatClientThread에의 ObjectOutputStream을 Close하는 중에 IOException이 발생하였습니다.");
+		} // catch
+
 	}
-	
+
 	public void endConnect() {
 		try {
 			socket.close();
 			oos.close();
 			ois.close();
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 //	public void createRoom() {
 //		try {
 //			System.out.println("createRoom");
@@ -190,7 +193,7 @@ public class ClientListener implements Runnable{
 //			e.printStackTrace();
 //		}
 //	}
-	
+
 //	public static void main(String[] args) {
 //		User userData = new User("127.0.0.1", "eunhye");
 //		

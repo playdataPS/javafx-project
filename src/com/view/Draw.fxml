@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
 
-<AnchorPane id="aaa" fx:id="word_num0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.DrawController">
+<AnchorPane id="aaa" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.view.DrawController">
 	<children>
 		<ProgressBar fx:id="bar" layoutX="260.0" layoutY="89.0" prefWidth="710.0" progress="0.63" />
 		<Region layoutX="191.0" layoutY="126.0" prefHeight="369.0" prefWidth="788.0" style="-fx-border-color: lightgray;" />
-		<Label id="user" fx:id="draw_username" alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="89.0" prefHeight="23.0" prefWidth="62.0" style="-fx-border-color: gray;" text="사용자" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
+		<Label id="user" fx:id="user" alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="89.0" prefHeight="23.0" prefWidth="62.0" style="-fx-border-color: gray;" text="사용자" textAlignment="CENTER" textFill="#0d0d0d" textOverrun="CLIP" wrapText="true" />
 		<Button fx:id="out" layoutX="1020.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitbtn" prefHeight="40.0" prefWidth="117.0" text="나가기" />
 		<TableView fx:id="playerlist" layoutX="999.0" layoutY="126.0" prefHeight="200.0" prefWidth="168.0">
 			<columns>

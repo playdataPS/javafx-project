@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -43,6 +44,8 @@ public class DrawController implements Initializable{
 	private ProgressBar bar; 
 	@FXML
 	private Button send;
+	@FXML
+	private Button out;
 	@FXML
 	private Canvas canvas;
 	@FXML
@@ -86,6 +89,7 @@ public class DrawController implements Initializable{
         gc.strokeLine(oldX, oldY, lastX, lastY);
         oldX = lastX;
         oldY = lastY;
+        System.out.println(String.format("oldX : %f, oldY : %f, lastX : %f, lastY : %f", oldX, oldY, lastX, lastY));
     }
 	
 	@FXML

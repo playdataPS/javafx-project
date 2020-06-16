@@ -1,5 +1,6 @@
 package com.view;
 
+import com.client.ClientListener;
 import com.main.MainApp;
 import com.vo.Room;
 import com.vo.User;
@@ -19,9 +20,9 @@ public class LoginController {
 	private Button startButton;
 	@FXML
 	private Label noticeLabel;
-	
+
 	private MainApp mainApp;
-	
+
 	private Stage loginStage;
 
 	@FXML
@@ -29,11 +30,11 @@ public class LoginController {
 		nicknameTextField.setText("");
 		noticeLabel.setText("닉네임을 입력해주세요.");
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+
 	public void setLoginStage(Stage loginStage) {
 		this.loginStage = loginStage;
 	}
@@ -41,24 +42,25 @@ public class LoginController {
 	@FXML
 	private void gameStart() {
 		String nickname = nicknameTextField.getText();
-		
+
 		boolean check = nickname.isEmpty();
-		
+
 		if (check) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(loginStage);
 			alert.setTitle("ERRORS");
-			alert.setHeaderText("오류 발생");
 			alert.setContentText("닉네임을 입력해주세요.");
-			
 			alert.showAndWait();
 		} else {
 			User user = new User();
 			user.setNickname(nickname);
-			 System.out.println("--------client data--------");
-		        System.out.println(user.getNickname());
-		        System.out.println("--------client data--------");
-			//user.setNickname(nickname);
+			System.out.println("--------client data--------");
+			System.out.println(user.getNickname());
+			System.out.println("--------client data--------");
+
+			ClientListener cli = new ClientListener("192.168.3.76", 5555, nickname);
+			cli.createConnect();
+
 			Room room = new Room("들어오세요", 8);
 			mainApp.initWaitingRoom(user, room);
 		}
