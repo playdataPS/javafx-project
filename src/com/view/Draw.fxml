@@ -35,8 +35,7 @@
             <Label fx:id="user8" layoutX="1039.0" layoutY="291.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" />
             <Label fx:id="user11" alignment="CENTER" contentDisplay="CENTER" layoutX="1039.0" layoutY="147.0" prefHeight="17.0" prefWidth="134.0" style="-fx-border-color: black;" text="접속자" />
 		<Canvas fx:id="canvas" height="368.0" layoutX="191.0" layoutY="126.0" onMouseDragged="#onMouseDraggedListener" onMousePressed="#onMousePressedListener" width="788.0" />
-      <ColorPicker fx:id="cPick" layoutX="999.0" layoutY="465.0" />
-      <Slider fx:id="slider" layoutX="998.0" layoutY="437.0" />
+      
 	</children>
 
 </AnchorPane>

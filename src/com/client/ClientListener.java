@@ -127,10 +127,18 @@ public class ClientListener implements Runnable {
 			case CONNECTED:
 				// 현재 접속 유저
 				// List<User> nowUserList = user.getUserList();
-
+				userList = new ArrayList<User>();
+				List<User> usertmpList = user.getUserList();
+				System.out.println(usertmpList.size());
+				
+				
+				for(User u : usertmpList) {
+					userList.add(u);
+				}
 				System.out.println("WaitingRoomController - login!! ");
 
 				user.setOos(oos);
+				WaitingRoomController.getInstance().changeLabel(userList);
 				// createRoom();
 				break;
 			case INCORRECT:
@@ -140,6 +148,7 @@ public class ClientListener implements Runnable {
 			case DISCONNECTED:
 				userList.remove(user);
 				System.out.println("update userList");
+				endConnect();
 				flag = true;
 				break;
 			case HIDE:
@@ -150,7 +159,7 @@ public class ClientListener implements Runnable {
 				break;
 			case PLAYING: //game view update
 				System.out.println("game playing GameController");
-							
+				MainApp.getInstance().switchToGame(userList);			
 				break;
 			case READY:
 				System.out.println("game WaitingRoomController > status - READY ");
@@ -161,8 +170,8 @@ public class ClientListener implements Runnable {
 				System.out.println("game WaitingRoomController > status - waiting ");
 				System.out.println(userNickname);			
 		
-				WaitingRoomController.getInstance().changeLabel(user);
 				
+				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
 				break;
 			default:
 				System.out.println("error");
