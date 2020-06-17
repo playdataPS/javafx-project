@@ -34,23 +34,20 @@ public class ClientListener implements Runnable {
 	private static ClientListener instance;
 	private static MainApp mainApp;
 	private static Room room;
-	
-	
-	
+
 	public ClientListener() {
 		instance = this;
 
 	}
-	
-	
 
 	public static ClientListener getInstance() {
 		return instance;
 	}
+
 	public User getUser() {
 		return user;
 	}
-	
+
 	public ClientListener(String serverIP, int serverPORT, User user) {
 		this.serverIP = serverIP;
 		this.serverPORT = serverPORT;
@@ -62,9 +59,7 @@ public class ClientListener implements Runnable {
 		this.serverPORT = serverPORT;
 		this.nickname = nickname;
 		this.mainApp = mainApp;
-		
-		
-		
+
 	}
 
 	public ClientListener(String serverIP, int serverPORT, String nickname, ObjectOutputStream oos) {
@@ -94,11 +89,13 @@ public class ClientListener implements Runnable {
 		listener = new Thread(this);
 		listener.start();
 	}
-    public void startHandler() {
-        // start a network handler thread
-        Thread t = new Thread(() -> networkHandler(socket));
-        t.start();
-    }
+
+	public void startHandler() {
+		// start a network handler thread
+		Thread t = new Thread(() -> networkHandler(socket));
+		t.start();
+	}
+
 	public void networkHandler(Socket s) {
 		while (!flag) {
 			try {
@@ -130,8 +127,9 @@ public class ClientListener implements Runnable {
 				// List<User> nowUserList = user.getUserList();
 				System.out.println("WaitingRoomController - login!! ");
 				List<User> usertmpList = user.getUserList();
-				System.out.println(usertmpList.get(0).getNickname());
-				
+
+				System.out.println(usertmpList.size());
+
 				userList = new ArrayList<User>();
 //				System.out.println(usertmpList.size());
 				RoomStatus nowRoomStatus = user.getRoomStatus();
@@ -140,13 +138,11 @@ public class ClientListener implements Runnable {
 					userList.add(u);
 				}
 				user.setOos(oos);
-//				WaitingRoomController.getInstance().changeLabel(userList);
+				WaitingRoomController.getInstance().setUser(user);
 				if(nowRoomStatus==null) {
 					user.setRoomStatus(RoomStatus.WAITING);
 				}
 				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
-				// createRoom();
-				
 				break;
 			case ROBY:
 				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
@@ -167,11 +163,10 @@ public class ClientListener implements Runnable {
 			case SEEK:
 				System.out.println("game playing GameController > role - seek ");
 				break;
-			case PLAYING: //game view update
+			case PLAYING: // game view update
 				System.out.println("game playing GameController");
-				MainApp.switchToGame(userList);			
+				MainApp.getInstance().switchToGame(userList);
 				break;
-			
 			default:
 				System.out.println("error");
 				break;
@@ -186,9 +181,11 @@ public class ClientListener implements Runnable {
 			System.err.println(" ChatClientThread에의 ObjectOutputStream을 Close하는 중에 IOException이 발생하였습니다.");
 		} // catch
 	}
+
 	// update UI according to the message from server
 	@Override
-	public void run() {}
+	public void run() {
+	}
 
 	public void endConnect() {
 		try {
@@ -201,10 +198,11 @@ public class ClientListener implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void setUser(User user) {
 		ClientListener.user = user;
 	}
+
 	public void sendData(User userData) {
 		try {
 			System.out.println("click! data!!"+userData.getRoomStatus());
@@ -217,6 +215,13 @@ public class ClientListener implements Runnable {
 		}
 	}
 
-
-
+	public void sendMessage(User userData) {
+		try {
+			oos.writeObject(userData);
+			oos.flush();
+			System.out.println("sendMessage222"+userData.getStatus() + ":" + userData.getNickname() + ":" + userData.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

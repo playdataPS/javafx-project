@@ -25,7 +25,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class WaitingRoomController{
+
+public class WaitingRoomController {
+
 
 	private static WaitingRoomController instance;
 	@FXML
@@ -154,6 +156,28 @@ public class WaitingRoomController{
 		CurrUserCount.setText(String.valueOf(x));
 	}
 
+
+
+
+	public void changeMessage() {
+		Platform.runLater(() -> {
+			// 채팅창의 내용을 업데이트
+		});
+	}
+
+	@FXML
+	private void submitAppend() {
+		System.out.println("내용 가져와"+input.getText());
+		ClientListener cli = new ClientListener();
+		User userData = new User();
+		userData.setNickname(getUser().getNickname());
+		userData.setMessage(input.getText());
+		userData.setStatus(Status.CHAT);
+		cli.sendMessage(userData);
+		input.setText("");
+	}
+
+
 	public void changeLabel1() {
 		UserLabel1.setText(user.getNickname());
 	}
@@ -185,6 +209,7 @@ public class WaitingRoomController{
 	public void refreshConstraints() {
 
 	}
+
 
 	public void changeLabel(List<User> users) {
 		Platform.runLater(() -> {
@@ -228,33 +253,11 @@ public class WaitingRoomController{
 				}
 				labelList.get(idx).setText(nickname);
 				idx++;
-
 			}
 
 		});
 
-	}// end ChangeReadyColor()
 
-//	@FXML
-//	private void clickReadyBtn() {
-//		User userData = ClientListener.getInstance().getUser();
-//		if (userData.getRoomStatus().equals(RoomStatus.WAITING)) {
-//			userData.setRoomStatus(RoomStatus.READY);
-//			userData.setStatus(Status.CONNECTED);
-//			ClientListener.getInstance().sendData(userData);
-//		} else if (userData.getRoomStatus().equals(RoomStatus.READY)) {
-//			userData.setRoomStatus(RoomStatus.WAITING);
-//			userData.setStatus(Status.CONNECTED);
-//			ClientListener.getInstance().sendData(userData);
-//		}
-//		// userData.setNickname(LoginController.getInstance().getPlayerName());
-//	}
-
-	@FXML
-	private void submitAppend() {
-		chatArea.appendText(input.getText() + "\n");
-		input.setText("");
-		input.requestFocus();
 	}
 
 	@FXML
@@ -269,7 +272,7 @@ public class WaitingRoomController{
 
 	@FXML
 	public void handleBtnStart(ActionEvent event) {
-		//Platform.runLater(()->{
+
 			User userData = new User();//ClientListener.getInstance().getUser()
 			User oldUserData = ClientListener.getInstance().getUser();
 			System.out.println("oldUserData before : "+oldUserData.getRoomStatus());
@@ -290,7 +293,7 @@ public class WaitingRoomController{
 			System.out.println("oldUserData nick1 : "+oldUserData.getNickname());
 			ClientListener.getInstance().sendData(oldUserData);
 			
-		//});
+		
 	}
 	
 

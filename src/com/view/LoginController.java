@@ -16,9 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
-	
+
 	private static LoginController instance;
-	
+
 	@FXML
 	private TextField nicknameTextField;
 	@FXML
@@ -26,11 +26,10 @@ public class LoginController {
 	@FXML
 	private Label noticeLabel;
 
-
 	private Stage loginStage;
 	private String playerName;
 	private User user;
-	
+
 	public LoginController() {
 		instance = this;
 	}
@@ -38,17 +37,17 @@ public class LoginController {
 	public static LoginController getInstance() {
 		return instance;
 	}
-	  public String getPlayerName() {
-	        return playerName;
-	    }
-	
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
 	@FXML
 	private void initialize() {
 		nicknameTextField.setText("");
-		noticeLabel.setText("닉네임을 입력해주세요.");
+		noticeLabel.setText("�땳�꽕�엫�쓣 �엯�젰�빐二쇱꽭�슂.");
 	}
 
-	
 	public void setLoginStage(Stage loginStage) {
 		this.loginStage = loginStage;
 	}
@@ -63,23 +62,21 @@ public class LoginController {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(loginStage);
 			alert.setTitle("ERRORS");
-			alert.setContentText("닉네임을 입력해주세요.");
+			alert.setContentText("�땳�꽕�엫�쓣 �엯�젰�빐二쇱꽭�슂.");
 			alert.showAndWait();
 		} else {
 			User user = new User();
 			user.setNickname(nickname);
-			playerName= nickname;
+			playerName = nickname;
 			ClientListener.getInstance().createConnect("127.0.0.1", 5555, nickname, MainApp.getInstance());
 			ClientListener.getInstance().startHandler();
-//			Room room = new Room("들어오세요", 8);
+//			Room room = new Room("�뱾�뼱�삤�꽭�슂", 8);
 //			MainApp.getInstance().initWaitingRoom(room);
-			
+
 			MainApp.switchToLobby();
-			
-			
+
 		}
-		
+
 	}
 
-	
 }
