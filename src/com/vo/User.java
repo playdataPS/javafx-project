@@ -28,6 +28,7 @@ public class User implements Serializable {
 	private Game gameData;
 	private Queue<Game> gameQue;
 	private GameStatus gameStatus;
+	private RoomStatus roomStatus; 
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -75,7 +76,12 @@ public class User implements Serializable {
 		this(no, ip, nickname, score, regdate, status, null);
 	}
 	
-	
+	public RoomStatus getRoomStatus() {
+		return roomStatus;
+	}
+	public void setRoomStatus(RoomStatus roomStatus) {
+		this.roomStatus = roomStatus;
+	}
 	
 	public int getRoomNo() {
 		return roomNo;
