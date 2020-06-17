@@ -52,21 +52,21 @@ public class RoomListController {
 
 	@FXML
 	private void initialize() {
-		roomNo.setCellValueFactory(cellData -> cellData.getValue().getNo().asObject());
-		roomName.setCellValueFactory(cellData -> cellData.getValue().getName());
-		userCnt.setCellValueFactory(cellData -> cellData.getValue().getUserCnt());
-		enterButton.setCellValueFactory(cellData -> cellData.getValue().getEnterButton());
-		noticeLabel.setText("빠른 실행을 위해서는 랜덤매칭을 눌러주세요.");
-		// userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
+//		roomNo.setCellValueFactory(cellData -> cellData.getValue().getNo().asObject());
+//		roomName.setCellValueFactory(cellData -> cellData.getValue().getName());
+//		userCnt.setCellValueFactory(cellData -> cellData.getValue().getUserCnt());
+//		enterButton.setCellValueFactory(cellData -> cellData.getValue().getEnterButton());
+//		noticeLabel.setText("빠른 실행을 위해서는 랜덤매칭을 눌러주세요.");
+//		// userName.setCellValueFactory(cellData -> cellData.getValue().getNickname());
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
-		roomList.setItems(mainApp.getRoomData());
-		userList.setItems(mainApp.getUserListOfRoomList());
-
-		userName.setText("접속자 (" + userList.getItems().size() + "명)");
+//		roomList.setItems(mainApp.getRoomData());
+//		userList.setItems(mainApp.getUserListOfRoomList());
+//
+//		userName.setText("접속자 (" + userList.getItems().size() + "명)");
 	}
 
 	public Stage getRoomListStage() {

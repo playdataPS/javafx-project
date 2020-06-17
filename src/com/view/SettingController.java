@@ -62,7 +62,7 @@ public class SettingController {
 		String roomName = roomTitleInput.getText();
 		int maxNum = Integer.parseInt(maxLimit.getText());
 		Room room = new Room(roomName, maxNum);
-		mainApp.initWaitingRoom(user, room);
+//		mainApp.initWaitingRoom(user, room);
 		settingStage.hide();
 //		RoomListController roomlist = new RoomListController();
 //		roomlist.getRoomListStage().hide();
