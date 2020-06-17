@@ -24,7 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,7 +32,9 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
 	private static MainApp instance;
-	 private static Parent gameRoot;
+	private static Parent gameRoot;
+	private static Parent sideColorPickerRoot;
+	private static Parent sideAnswerRoot;
 	
 	private static Stage primaryStage;
 	private static Scene loginScene, lobbyScene, gameScene;
@@ -66,8 +68,14 @@ public class MainApp extends Application {
 		Parent lobbyRoot = FXMLLoader.load(getClass().getResource("../view/WaitingRoom.fxml"));
         lobbyScene = new Scene(lobbyRoot);
         
-//        gameRoot = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Draw.fxml"));
-//        gameScene = new Scene(gameRoot);
+        sideColorPickerRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("../view/SideColorPicker.fxml"));
+        sideAnswerRoot = FXMLLoader.load(getClass().getResource("../view/SideAnswer.fxml"));
+        gameRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("../view/Draw.fxml"));
+      //  ((AnchorPane) gameRoot).getRightAnchor(sideAnswerRoot);
+        
+       AnchorPane.setRightAnchor(sideAnswerRoot, 13.0);
+       ((AnchorPane) gameRoot).getChildren().add(sideAnswerRoot);
+        gameScene = new Scene(gameRoot);
         
         window.setScene(loginScene);
         window.setTitle("Login");
@@ -110,6 +118,12 @@ public class MainApp extends Application {
     }
 	
     public static void switchToGame(List<User> userList) {
+    	Platform.runLater(()->{
+    		window.setOpacity(0.0);
+        	window.setScene(gameScene);
+        	 moveToCenter();
+             window.setOpacity(1.0);
+    	});
     	
     }
     

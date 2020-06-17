@@ -11,6 +11,7 @@ import com.vo.User;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -94,7 +95,7 @@ public class WaitingRoomController {
 	@FXML
     private List<Label> labelList ;
 	@FXML
-    private List<Pane> userList ;
+    private List<Pane> userPaneList ;
 
 	public WaitingRoomController() {
 		instance = this;
@@ -149,13 +150,14 @@ public class WaitingRoomController {
 		CurrUserCount.setText(String.valueOf(x));
 	}
 
-	public void changeLabel(User user) {
+	public void changeLabel(List<User> users) {
 		Platform.runLater(() -> {
 //			RoomNameLabel.setText(user.getNickname());
-			CurrUserCount.setText(String.valueOf(user.getUserList().size()));
-			for(int i=0; i<user.getUserList().size(); i++) {
-				String nickname = user.getUserList().get(i).getNickname();
+			CurrUserCount.setText(String.valueOf(users.size()));
+			for(int i=0; i<users.size(); i++) {
+				String nickname = users.get(i).getNickname();
 				System.out.println("nickname  :  "+nickname);
+				userPaneList.get(i).setStyle("-fx-background-color : #42A5F5; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
 				labelList.get(i).setText(nickname);
 			}//for end 
 			
@@ -195,22 +197,28 @@ public class WaitingRoomController {
 		
 	}
 	
-	
+
 	public void ChangeReadyColor(List<User> users) {//ready 버튼 클릭
 		// 사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
-		Platform.runLater(()->{
+		//Platform.runLater(()->{
 			int idx = 0;
+			StringBuffer style = new StringBuffer();
+			style.append("-fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
+			String red = style.append(" -fx-background-color : #EF5350;").toString();
+			String blue = style.append(" -fx-background-color : #42A5F5;").toString();
 			for(User u: users) {
+				
+				System.out.println("pane "+u.getNickname()+"  :  "+ u.getStatus());
 				
 				if(u.getStatus().equals(Status.READY)) {
 					if (state == "R") {
-						readyStart.setStyle("-fx-background-color :  #42A5F5;");
+						readyStart.setStyle(blue);
 						
-						userList.get(idx).setStyle("-fx-background-color :  #EF5350;");
+						userPaneList.get(idx).setStyle(red);
 						state = "B";
 					} else {
-						readyStart.setStyle("-fx-background-color : #EF5350;");
-						userList.get(idx).setStyle("-fx-background-color :  #42A5F5;");
+						readyStart.setStyle(red);
+						userPaneList.get(idx).setStyle(blue);
 						state = "R";
 					}
 				}
@@ -219,16 +227,31 @@ public class WaitingRoomController {
 			}
 			
 			
-		});
+		//});
 		
 	}//end ChangeReadyColor()
 	
+	
+	
 	@FXML
-	private void clickReadyBtn(ActionEvent event) {
-		User userData = new User();
-		userData.setStatus(Status.READY);
-		userData.setNickname(LoginController.getInstance().getPlayerName());
-		ClientListener.getInstance().sendData(userData);
+	private void clickReadyBtn() {
+		
+		readyStart.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				User userData = ClientListener.getInstance().getUser();
+				if(userData.getStatus().equals(Status.CONNECTED)||userData.getStatus().equals(Status.WAITING)) {
+					userData.setStatus(Status.READY);
+				}else if(userData.getStatus().equals(Status.READY)) {
+					userData.setStatus(Status.WAITING);	
+				}
+				userData.setNickname(LoginController.getInstance().getPlayerName());
+				ClientListener.getInstance().sendData(userData);
+			}
+		});
+		
+		
 	}
 
 	@FXML
