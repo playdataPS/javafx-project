@@ -1,11 +1,14 @@
 package com.view;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.client.ClientListener;
 import com.main.MainApp;
 import com.vo.Room;
+import com.vo.RoomStatus;
 import com.vo.Status;
 import com.vo.User;
 
@@ -13,6 +16,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -21,7 +25,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 public class WaitingRoomController {
+
 
 	private static WaitingRoomController instance;
 	@FXML
@@ -150,21 +156,8 @@ public class WaitingRoomController {
 		CurrUserCount.setText(String.valueOf(x));
 	}
 
-	public void changeLabel(List<User> users) {
-		Platform.runLater(() -> {
-//			RoomNameLabel.setText(user.getNickname());
-			CurrUserCount.setText(String.valueOf(users.size()));
-			for (int i = 0; i < users.size(); i++) {
-				String nickname = users.get(i).getNickname();
-				System.out.println("nickname  :  " + nickname);
-				userPaneList.get(i).setStyle(
-						"-fx-background-color : #42A5F5; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
-				labelList.get(i).setText(nickname);
-			} // for end
 
-		});
 
-	}
 
 	public void changeMessage() {
 		Platform.runLater(() -> {
@@ -183,6 +176,7 @@ public class WaitingRoomController {
 		cli.sendMessage(userData);
 		input.setText("");
 	}
+
 
 	public void changeLabel1() {
 		UserLabel1.setText(user.getNickname());
@@ -216,56 +210,53 @@ public class WaitingRoomController {
 
 	}
 
+
+	public void changeLabel(List<User> users) {
+		Platform.runLater(() -> {
+//			RoomNameLabel.setText(user.getNickname());
+			CurrUserCount.setText(String.valueOf(users.size()));
+			for (int i = 0; i < users.size(); i++) {
+				String nickname = users.get(i).getNickname();
+				System.out.println("nickname  :  " + nickname);
+				userPaneList.get(i).setStyle(
+						"-fx-background-color : #42A5F5; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
+				labelList.get(i).setText(nickname);
+			} // for end
+
+		});
+
+	}
+
 	public void ChangeReadyColor(List<User> users) {// ready 버튼 클릭
 		// 사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
-		// Platform.runLater(()->{
-		int idx = 0;
-		StringBuffer style = new StringBuffer();
-		style.append(
-				"-fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
-		String red = style.append(" -fx-background-color : #EF5350;").toString();
-		String blue = style.append(" -fx-background-color : #42A5F5;").toString();
-		for (User u : users) {
+		Platform.runLater(() -> {
+			int idx = 0;
+			StringBuffer style = new StringBuffer();
 
-			System.out.println("pane " + u.getNickname() + "  :  " + u.getStatus());
+			style.append(
+					"-fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
+//			RoomNameLabel.setText(user.getNickname());
+			CurrUserCount.setText(String.valueOf(users.size()));
+			String red = style.append(" -fx-background-color : #EF5350;").toString();
+			String blue = style.append(" -fx-background-color : #42A5F5;").toString();
+			for (User u : users) {
 
-			if (u.getStatus().equals(Status.READY)) {
-				if (state == "R") {
+				System.out.println("pane " + u.getNickname() + "  :  " + u.getRoomStatus());
+				String nickname = users.get(idx).getNickname();
+				if(u.getRoomStatus()==null) u.setRoomStatus(RoomStatus.WAITING);
+				if (u.getRoomStatus().equals(RoomStatus.WAITING)) {
 					readyStart.setStyle(blue);
-
 					userPaneList.get(idx).setStyle(red);
-					state = "B";
-				} else {
+				} else if (u.getRoomStatus().equals(RoomStatus.READY)) {
 					readyStart.setStyle(red);
 					userPaneList.get(idx).setStyle(blue);
-					state = "R";
 				}
+				labelList.get(idx).setText(nickname);
+				idx++;
 			}
-			idx++;
 
-		}
-
-		// });
-
-	}// end ChangeReadyColor()
-
-	@FXML
-	private void clickReadyBtn() {
-
-		readyStart.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				User userData = ClientListener.getInstance().getUser();
-				if (userData.getStatus().equals(Status.CONNECTED) || userData.getStatus().equals(Status.WAITING)) {
-					userData.setStatus(Status.READY);
-				} else if (userData.getStatus().equals(Status.READY)) {
-					userData.setStatus(Status.WAITING);
-				}
-				userData.setNickname(LoginController.getInstance().getPlayerName());
-				ClientListener.getInstance().sendData(userData);
-			}
 		});
+
 
 	}
 
@@ -278,5 +269,32 @@ public class WaitingRoomController {
 	private void exitApp() {
 		System.exit(0);
 	}
+
+	@FXML
+	public void handleBtnStart(ActionEvent event) {
+
+			User userData = new User();//ClientListener.getInstance().getUser()
+			User oldUserData = ClientListener.getInstance().getUser();
+			System.out.println("oldUserData before : "+oldUserData.getRoomStatus());
+			switch (oldUserData.getRoomStatus()) {
+			case WAITING:
+				oldUserData.setRoomStatus(RoomStatus.READY);
+				break;
+
+			case READY:
+				oldUserData.setRoomStatus(RoomStatus.WAITING);
+				break;
+			}
+			System.out.println("oldUserData after : "+oldUserData.getRoomStatus());
+			
+			oldUserData.setStatus(Status.ROBY);
+			ClientListener.setUser(oldUserData);
+			oldUserData.setNickname(LoginController.getInstance().getPlayerName());
+			System.out.println("oldUserData nick1 : "+oldUserData.getNickname());
+			ClientListener.getInstance().sendData(oldUserData);
+			
+		
+	}
+	
 
 }

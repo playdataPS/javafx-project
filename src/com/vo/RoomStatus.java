@@ -1,5 +1,5 @@
 package com.vo;
 
 public enum RoomStatus {
-	WAITING, PLAYING;
+	WAITING, READY;
 }

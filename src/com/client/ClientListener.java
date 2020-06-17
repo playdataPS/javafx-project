@@ -11,6 +11,7 @@ import java.util.*;
 import com.main.MainApp;
 import com.view.LoginController;
 import com.view.WaitingRoomController;
+import com.vo.GameStatus;
 import com.vo.Room;
 import com.vo.RoomStatus;
 import com.vo.Status;
@@ -124,20 +125,27 @@ public class ClientListener implements Runnable {
 			case CONNECTED:
 				// 현재 접속 유저
 				// List<User> nowUserList = user.getUserList();
-				userList = new ArrayList<User>();
+				System.out.println("WaitingRoomController - login!! ");
 				List<User> usertmpList = user.getUserList();
+
 				System.out.println(usertmpList.size());
 
-				for (User u : usertmpList) {
+				userList = new ArrayList<User>();
+//				System.out.println(usertmpList.size());
+				RoomStatus nowRoomStatus = user.getRoomStatus();
+		
+				for(User u : usertmpList) {
 					userList.add(u);
 				}
-				System.out.println("WaitingRoomController - login!! ");
-
 				user.setOos(oos);
-				WaitingRoomController.getInstance().changeLabel(userList);
 				WaitingRoomController.getInstance().setUser(user);
-//				WaitingRoomController.getInstance().Test();
-				// createRoom();
+				if(nowRoomStatus==null) {
+					user.setRoomStatus(RoomStatus.WAITING);
+				}
+				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
+				break;
+			case ROBY:
+				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
 				break;
 			case INCORRECT:
 				System.out.println("loginController - try again ");
@@ -158,17 +166,6 @@ public class ClientListener implements Runnable {
 			case PLAYING: // game view update
 				System.out.println("game playing GameController");
 				MainApp.getInstance().switchToGame(userList);
-				break;
-			case READY:
-				System.out.println("game WaitingRoomController > status - READY ");
-				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
-				break;
-
-			case WAITING:
-				System.out.println("game WaitingRoomController > status - waiting ");
-				System.out.println(userNickname);
-
-				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
 				break;
 			default:
 				System.out.println("error");
@@ -202,8 +199,14 @@ public class ClientListener implements Runnable {
 		}
 	}
 
+	public static void setUser(User user) {
+		ClientListener.user = user;
+	}
+
 	public void sendData(User userData) {
 		try {
+			System.out.println("click! data!!"+userData.getRoomStatus());
+			System.out.println();
 			oos.writeObject(userData);
 			oos.flush();
 		} catch (IOException e) {
