@@ -137,14 +137,28 @@ public class ClientListener implements Runnable {
 				for(User u : usertmpList) {
 					userList.add(u);
 				}
-				user.setOos(oos);
+				
 				WaitingRoomController.getInstance().setUser(user);
 				if(nowRoomStatus==null) {
 					user.setRoomStatus(RoomStatus.WAITING);
 				}
-				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
+				//WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
+				WaitingRoomController.getInstance().changeLabel(user.getUserList());
+				
 				break;
 			case ROBY:
+				System.out.println();
+				
+				for (User u : user.getUserList()) {
+					//System.out.println("lobby status " + u.getNickname() + "  :  " + u.getRoomStatus());
+					if(u.getNickname().equals(userNickname)) {
+						u.setRoomStatus(user.getRoomStatus());
+					}
+				
+				}
+				//System.out.println("lobby  "+userNickname+" : "+user.getRoomStatus());
+				
+				
 				WaitingRoomController.getInstance().ChangeReadyColor(user.getUserList());
 				break;
 			case INCORRECT:
@@ -157,15 +171,24 @@ public class ClientListener implements Runnable {
 				endConnect();
 				flag = true;
 				break;
-			case HIDE:
-				System.out.println("game playing  GameController> role - hide ");
-				break;
-			case SEEK:
-				System.out.println("game playing GameController > role - seek ");
-				break;
+			
 			case PLAYING: // game view update
 				System.out.println("game playing GameController");
-				MainApp.getInstance().switchToGame(userList);
+				
+				GameStatus gameStatus = user.getGameStatus();
+				//if(gameStatus==null) {
+					MainApp.switchToGame();   
+					
+				//}
+//				switch (gameStatus) {
+//				case HIDE:
+//					
+//					break;
+//				case SEEK:
+//					System.out.println("game playing GameController > role - seek ");
+//					break;
+//				}
+				
 				break;
 			default:
 				System.out.println("error");

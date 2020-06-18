@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.main.MainApp;
+import com.vo.Point;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -67,6 +68,8 @@ public class DrawController implements Initializable{
 	
 	private GraphicsContext gc;
 	
+	Point point;
+	
     double startX, startY, lastX,lastY,oldX,oldY;
     double hg;
 
@@ -75,9 +78,16 @@ public class DrawController implements Initializable{
 	private String word="바나나";
 	
 	private Stage drawStage;
-
+	
+	private static DrawController instance;
+	
+	
+	public static DrawController getInstance() {
+		return instance;
+	}
+	
 	public DrawController() {
-		super();
+		instance = this;
 	}
 	
     public void setDrawStage(Stage drawStage) {
@@ -93,6 +103,8 @@ public class DrawController implements Initializable{
         System.out.println(String.format("oldX : %f, oldY : %f, lastX : %f, lastY : %f", oldX, oldY, lastX, lastY));
         
         System.out.println("color: "+cPick.getValue());
+        
+        
     }
 	
 	@FXML

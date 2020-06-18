@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.client.ClientListener;
 import com.main.MainApp;
+import com.vo.GameStatus;
 import com.vo.Room;
 import com.vo.RoomStatus;
 import com.vo.Status;
@@ -231,6 +232,8 @@ public class WaitingRoomController {
 		// 사용자가 몇번째 pane에 들어가는지 알아야 background 바꿀 수 있음.
 		Platform.runLater(() -> {
 			int idx = 0;
+			
+			
 			StringBuffer style = new StringBuffer();
 
 			style.append(
@@ -242,16 +245,16 @@ public class WaitingRoomController {
 			for (User u : users) {
 
 				System.out.println("pane " + u.getNickname() + "  :  " + u.getRoomStatus());
-				String nickname = users.get(idx).getNickname();
-				if(u.getRoomStatus()==null) u.setRoomStatus(RoomStatus.WAITING);
-				if (u.getRoomStatus().equals(RoomStatus.WAITING)) {
-					readyStart.setStyle(blue);
-					userPaneList.get(idx).setStyle(red);
-				} else if (u.getRoomStatus().equals(RoomStatus.READY)) {
-					readyStart.setStyle(red);
+				//String nickname = users.get(idx).getNickname();
+			//	if(u.getRoomStatus()==null) u.setRoomStatus(RoomStatus.WAITING);
+				if (u.getRoomStatus().equals(RoomStatus.WAITING)&&u.getNickname().equals(labelList.get(idx).getText())) {
+					
 					userPaneList.get(idx).setStyle(blue);
+				} else{
+					userPaneList.get(idx).setStyle(red);
+					
 				}
-				labelList.get(idx).setText(nickname);
+				//labelList.get(idx).setText(nickname);
 				idx++;
 			}
 
@@ -274,24 +277,41 @@ public class WaitingRoomController {
 	public void handleBtnStart(ActionEvent event) {
 
 			User userData = new User();//ClientListener.getInstance().getUser()
-			User oldUserData = ClientListener.getInstance().getUser();
-			System.out.println("oldUserData before : "+oldUserData.getRoomStatus());
-			switch (oldUserData.getRoomStatus()) {
+//			User oldUserData = ClientListener.getInstance().getUser();
+		
+			///System.out.println("oldUserData before : "+user.getNickname());
+			StringBuffer style = new StringBuffer();
+
+			style.append(
+					"-fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);");
+			String red = style.append(" -fx-background-color : #EF5350;").toString();
+			String blue = style.append(" -fx-background-color : #42A5F5;").toString();
+			String nickname = LoginController.getInstance().getPlayerName();
+			RoomStatus status = null;
+			for(User u : user.getUserList()) {
+				if(u.getNickname().equals(nickname)) {
+					status = u.getRoomStatus();
+				}
+			}
+			switch (status) {
 			case WAITING:
-				oldUserData.setRoomStatus(RoomStatus.READY);
+				
+				readyStart.setStyle(blue);
+				userData.setRoomStatus(RoomStatus.READY);
 				break;
 
 			case READY:
-				oldUserData.setRoomStatus(RoomStatus.WAITING);
+				readyStart.setStyle(red);
+				userData.setRoomStatus(RoomStatus.WAITING);
 				break;
 			}
-			System.out.println("oldUserData after : "+oldUserData.getRoomStatus());
+			///System.out.println("oldUserData after : "+user.getRoomStatus());
 			
-			oldUserData.setStatus(Status.ROBY);
-			ClientListener.setUser(oldUserData);
-			oldUserData.setNickname(LoginController.getInstance().getPlayerName());
-			System.out.println("oldUserData nick1 : "+oldUserData.getNickname());
-			ClientListener.getInstance().sendData(oldUserData);
+			userData.setStatus(Status.ROBY);
+			//ClientListener.setUser(user);
+			userData.setNickname(nickname);
+			System.out.println("oldUserData nick1 : "+nickname);
+			ClientListener.getInstance().sendData(userData);
 			
 		
 	}

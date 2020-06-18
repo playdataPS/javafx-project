@@ -111,20 +111,18 @@ public class MainApp extends Application {
         window.setTitle("Lobby: " + LoginController.getInstance().getPlayerName());
         window.setScene(lobbyScene);
         // relocate window and show
-      // moveToCenter();
         moveToCenter();
         window.setOpacity(1.0);
         
     }
 	
-    public static void switchToGame(List<User> userList) {
+    public static void switchToGame() {
     	Platform.runLater(()->{
     		window.setOpacity(0.0);
         	window.setScene(gameScene);
         	 moveToCenter();
              window.setOpacity(1.0);
     	});
-    	
     }
     
 	public void initLogin() {

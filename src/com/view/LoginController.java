@@ -51,6 +51,10 @@ public class LoginController {
 	public void setLoginStage(Stage loginStage) {
 		this.loginStage = loginStage;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 
 	@FXML
 	private void gameStart() {
@@ -62,7 +66,7 @@ public class LoginController {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(loginStage);
 			alert.setTitle("ERRORS");
-			alert.setContentText("�땳�꽕�엫�쓣 �엯�젰�빐二쇱꽭�슂.");
+			alert.setContentText("로그인 하세용");
 			alert.showAndWait();
 		} else {
 			User user = new User();
